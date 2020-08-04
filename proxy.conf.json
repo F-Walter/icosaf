@@ -1,0 +1,11 @@
+{
+    "/api": {
+      "target": "http://icosaf.replycloud.prv:8081/events",
+      "secure": false,
+      "pathRewrite": {
+        "^/api": ""
+      },
+      "changeOrigin": true
+    }
+
+  }

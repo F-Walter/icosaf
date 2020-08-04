@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { SseServiceService } from './services/SseService/sse-service.service';
 import { Observable } from 'rxjs';
 
@@ -7,37 +7,16 @@ import { Observable } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'icosaf';
   //NgZone to alert Angular when an event occurs because it happens outside of the framework.
   constructor(private sseService: SseServiceService, private ngZone: NgZone) {
-    this.getServerSentEvent("http://icosaf.replycloud.prv:8081/events")
   }
 
-  getServerSentEvent(url: string) {
-    return Observable.create(observer => {
-      const eventSource = this.sseService.getEventSource(url);
-
-
-      eventSource.onmessage = event => {
-        //success
-        console.log("SseService on success");
-        this.ngZone.run(() => {
-          observer.next(event);
-        })
-
-      }
-      eventSource.onerror = error => {
-        console.log("SseService on Error");
-        this.ngZone.run(() => {
-          observer.next(error);
-        })
-      }
-    })
-
-
+  ngOnInit(){
+    console.log("Contacting events...")
+    this.sseService
+      .getServerSentEvent("http://icosaf.cloud.reply.eu:4200/api")
+      .subscribe(data => console.log(data));
   }
-
-
-
 }
