@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { GridListUCComponent } from './di-pre-treat-grid-list/grid-list-uc.component';
-import { UseCaseDetailsComponent } from './di-pre-treat-UCDetails/use-case-details.component';
+import { GridListUCComponent } from './components/di-pre-treat-grid-list/grid-list-uc.component';
+import { UseCaseDetailsComponent } from './components/di-pre-treat-UCDetails/use-case-details.component';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,14 +14,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
-import {MatTableModule} from '@angular/material/table';
-import {MatExpansionModule} from '@angular/material/expansion';
-import { ProblemModalComponent } from './di-pre-treat-UCDetails/modal/problem-modal.component'; 
-
-import { DipretreatToolbarComponent } from './di-pre-treat-toolbar/dipretreat-toolbar.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ProblemModalComponent } from './components/di-pre-treat-UCDetails/modal/problem-modal.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { DipretreatToolbarComponent } from './components/di-pre-treat-toolbar/dipretreat-toolbar.component';
 
 
 @NgModule({
@@ -29,6 +29,7 @@ import { DipretreatToolbarComponent } from './di-pre-treat-toolbar/dipretreat-to
     GridListUCComponent,
     UseCaseDetailsComponent,
     DipretreatToolbarComponent,
+    ProblemModalComponent,
     AppComponent,
   ],
   imports: [
@@ -44,6 +45,7 @@ import { DipretreatToolbarComponent } from './di-pre-treat-toolbar/dipretreat-to
     MatListModule,
     MatTableModule,
     MatExpansionModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

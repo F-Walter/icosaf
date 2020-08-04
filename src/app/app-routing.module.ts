@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GridListUCComponent } from './di-pre-treat-grid-list/grid-list-uc.component';
-import { UseCaseDetailsComponent } from './di-pre-treat-UCDetails/use-case-details.component';
+import { GridListUCComponent } from './components/di-pre-treat-grid-list/grid-list-uc.component';
+import { UseCaseDetailsComponent } from './components/di-pre-treat-UCDetails/use-case-details.component';
 
 
 

@@ -37,7 +37,7 @@ export class GridListUCComponent {
     { text: 'UC-A', value: "A", color: 'primary' },
     { text: 'UC-B', value: "B", color: 'accent' },
     { text: 'UC-C', value: "C", color: 'warn' },
-    { text: 'UC-D', value: "D", color: '' }
+    { text: 'UC-D', value: "D", color: 'success' }
   ]
 
 
