@@ -11,8 +11,7 @@ export class AppComponent {
   title = 'icosaf';
   //NgZone to alert Angular when an event occurs because it happens outside of the framework.
   constructor(private sseService: SseServiceService, private ngZone: NgZone) {
-    this.getServerSentEvent("http://icowms.cloud.reply.eu/Details/getTaskListAGV?order_id=1&agv_id=1")
-    this.getServerSentEvent("http://icowms.cloud.reply.eu/Details/getTaskListOper?order_id=1&oper_id=1")
+    this.getServerSentEvent("http://icosaf.replycloud.prv:8081/events")
   }
 
   getServerSentEvent(url: string) {
