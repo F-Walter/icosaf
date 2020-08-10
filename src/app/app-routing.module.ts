@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GridListUCComponent } from './components/di-pre-treat-grid-list/grid-list-uc.component';
-import { UseCaseDetailsComponent } from './components/di-pre-treat-UCDetails/use-case-details.component';
+import { GridListUCComponent } from './components/grid-list/grid-list-uc.component';
+import { UseCaseDetailsComponent } from './components/UCDetails/use-case-details.component';
 
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'DiPreTreatUCChoice',
+    redirectTo: 'UCChoice',
     pathMatch: 'full'
   },
  
   {
-    path: 'DiPreTreatUCChoice',
+    path: 'UCChoice',
     // canActivate: [AuthGuard],
     component: GridListUCComponent,
   },
@@ -22,19 +22,19 @@ const routes: Routes = [
     path: 'UseCaseDetails',
     component: UseCaseDetailsComponent,
   },
-  {
-    path: 'logged',
-    children: [
-      // {
-      //   path: 'applicationi-internet/students',
-      //   component: StudentsContComponent
-      // },
-      // {
-      //   path: 'applicationi-internet/vms',
-      //   component: VmsContComponentComponent
-      // }
-    ]
-  },
+  // {
+  //   path: 'logged',
+  //   children: [
+  //     // {
+  //     //   path: 'applicationi-internet/students',
+  //     //   component: StudentsContComponent
+  //     // },
+  //     // {
+  //     //   path: 'applicationi-internet/vms',
+  //     //   component: VmsContComponentComponent
+  //     // }
+  //   ]
+  // },
 ];
 
 

@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { GridListUCComponent } from './components/di-pre-treat-grid-list/grid-list-uc.component';
-import { UseCaseDetailsComponent } from './components/di-pre-treat-UCDetails/use-case-details.component';
-
-
+import { GridListUCComponent } from './components/grid-list/grid-list-uc.component';
+import { UseCaseDetailsComponent } from './components/UCDetails/use-case-details.component';
+import { ProblemModalComponent } from './components/UCDetails/modal/problem-modal.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -19,18 +19,17 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { ProblemModalComponent } from './components/di-pre-treat-UCDetails/modal/problem-modal.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { DipretreatToolbarComponent } from './components/di-pre-treat-toolbar/dipretreat-toolbar.component';
+import {MatSidenavModule} from '@angular/material/sidenav'; 
 
 
 @NgModule({
   declarations: [
     GridListUCComponent,
     UseCaseDetailsComponent,
-    DipretreatToolbarComponent,
     ProblemModalComponent,
     AppComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +44,8 @@ import { DipretreatToolbarComponent } from './components/di-pre-treat-toolbar/di
     MatListModule,
     MatTableModule,
     MatExpansionModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
