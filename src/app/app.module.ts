@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatSidenavModule} from '@angular/material/sidenav'; 
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatExpansionModule,
     MatGridListModule,
     MatSidenavModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

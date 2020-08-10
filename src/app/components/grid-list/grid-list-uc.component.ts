@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 
@@ -28,9 +30,19 @@ export class GridListUCComponent {
 
   navLinks: any[]
 
-  constructor(private router: Router) {
+  constructor(private router: Router, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+
 
     this.navLinks = navLinks
+
+    iconRegistry.addSvgIcon(
+      'dashboard-icon-selected',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/dashboardIconSelected.svg'));
+ 
+
+    iconRegistry.addSvgIcon(
+      'dashboard-icon',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/dashboardIcon.svg'));
   }
 
   buttons = [

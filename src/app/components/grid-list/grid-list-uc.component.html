@@ -2,17 +2,28 @@
 </app-toolbar>
 
 <mat-sidenav-container class="example-container">
+
   <mat-sidenav mode="side" opened="true">
-    <mat-list role="list">
-      <mat-list-item role="listitem">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-      </mat-list-item>
-      <mat-list-item role="listitem">Item 3</mat-list-item>
-    </mat-list>
+
+
+    <mat-selection-list #iconList [multiple]="false">
+      <mat-list-option>
+        <mat-icon svgIcon="dashboard-icon" aria-hidden="false" aria-label="Example of dashboard SVG icon"></mat-icon>
+      </mat-list-option>
+
+      <mat-list-option>
+        <mat-icon svgIcon="dashboard-icon-selected" aria-hidden="false" aria-label="Example of dashboard SVG icon selected"></mat-icon>
+      </mat-list-option>
+
+      <mat-list-option>
+        <mat-icon svgIcon="dashboard-icon" aria-hidden="false" aria-label="Example of dashboard SVG icon"></mat-icon>
+      </mat-list-option>
+    </mat-selection-list>
+    <p>{{iconList.selectedOptions.selected[0]?.value}}</p>
+
   </mat-sidenav>
+  
+
   <mat-sidenav-content>
 
     <mat-grid-list cols="2" rowHeight="2:1">
