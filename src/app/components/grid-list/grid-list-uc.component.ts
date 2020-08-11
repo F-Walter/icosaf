@@ -47,13 +47,19 @@ export class GridListUCComponent {
         iconRegistry.addSvgIcon(
           'setting-icon-selected',
           sanitizer.bypassSecurityTrustResourceUrl('assets/img/settingIconSelected.svg'));
-  }
+  
+          iconRegistry.addSvgIcon(
+            'logout-icon',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/img/logoutIcon.svg'));
+          
+  
+        }
 
   buttons = [
     { text: 'UC-A', value: "A", color: 'primary' },
     { text: 'UC-B', value: "B", color: 'accent' },
     { text: 'UC-C', value: "C", color: 'warn' },
-    { text: 'UC-D', value: "D", color: 'success' }
+    { text: 'UC-D', value: "D", color: 'inactive' }
   ]
 
 
