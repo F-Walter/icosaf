@@ -10,9 +10,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'icosaf';
+  logged: boolean
+
+
   //NgZone to alert Angular when an event occurs because it happens outside of the framework.
   constructor(private sseService: SseServiceService, private ngZone: NgZone, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute) {
+    this.logged = false
+
     iconRegistry.addSvgIcon(
       'dashboard-icon-selected',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/dashboardIconSelected.svg'));
@@ -38,10 +42,17 @@ export class AppComponent implements OnInit {
       .subscribe(data => console.log(data));
 
 
-   
-      console.log(this.activatedRoute.url)
-   }
 
+    console.log(this.activatedRoute.url)
+  }
+
+  changeLogged(){
+    this.logged = !this.logged
+  }
+
+  isLogged(): boolean {
+    return this.logged
+  }
 
   onSelect(iconSelected) {
     console.log(iconSelected)
