@@ -9,10 +9,14 @@ mat-grid-list{
 mat-sidenav{
     /* --unnamed-color-2c303b: #2C303B; */
     background-color: #2c303b;
-    width: 3%;
+    width: 3.3%;
 }
 
 
 mat-list-option[aria-selected="true"] {
     background: white;
   }
+
+  .mat-divider {
+    border-top-color: white;
+}

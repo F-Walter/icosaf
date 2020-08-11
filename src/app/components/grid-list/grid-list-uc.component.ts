@@ -38,11 +38,15 @@ export class GridListUCComponent {
     iconRegistry.addSvgIcon(
       'dashboard-icon-selected',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/dashboardIconSelected.svg'));
- 
-
     iconRegistry.addSvgIcon(
       'dashboard-icon',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/dashboardIcon.svg'));
+      iconRegistry.addSvgIcon(
+        'setting-icon',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/img/settingIcon.svg'));
+        iconRegistry.addSvgIcon(
+          'setting-icon-selected',
+          sanitizer.bypassSecurityTrustResourceUrl('assets/img/settingIconSelected.svg'));
   }
 
   buttons = [
@@ -55,5 +59,9 @@ export class GridListUCComponent {
 
   onClickButton(useCase: string) {
     this.router.navigate(['UseCaseDetails'], { queryParams: { UC: useCase } })
+  }
+
+  onSelect(iconSelected) {
+    console.log(iconSelected)
   }
 }
