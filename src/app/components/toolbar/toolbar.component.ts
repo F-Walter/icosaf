@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-toolbar',
@@ -12,16 +13,9 @@ export class ToolbarComponent implements OnInit {
 
   path: string
 
-  constructor(private router: Router, activatedRoute: ActivatedRoute,  iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(private router: Router, public location: Location, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     this.path = "";
-    activatedRoute.url.subscribe(url => {
-      let i = 0
-      for (i = 0; i < url.length - 1; i++) {
-        this.path += url[i] + " > "
-      }
 
-      this.path += url[i]
-    })
 
     iconRegistry.addSvgIcon(
       'bell-icon-notified',
@@ -30,11 +24,23 @@ export class ToolbarComponent implements OnInit {
   }
 
 
-ngOnInit(): void {
-}
+  ngOnInit(): void {
+    let url = this.location.path()
+    let normalizedUrl = url.slice(1, url.length)
+    let segments = normalizedUrl.split("/")
 
-logout() {
-  // this.authService.logout()
-  this.router.navigate(['home'])
-}
+
+    for (let i = 0; i < segments.length; i++) {
+      if (i == segments.length - 1)
+        this.path += segments[i]
+      else
+        this.path += segments[i] + " > "
+    }
+  }
+
+
+  logout() {
+    // this.authService.logout()
+    this.router.navigate(['home'])
+  }
 }

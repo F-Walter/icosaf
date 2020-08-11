@@ -22,7 +22,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatSidenavModule} from '@angular/material/sidenav'; 
 import {HttpClientModule} from '@angular/common/http';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 
 @NgModule({
@@ -32,7 +31,6 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     ProblemModalComponent,
     AppComponent,
     ToolbarComponent,
-    SidenavComponent,
   ],
   imports: [
     BrowserModule,

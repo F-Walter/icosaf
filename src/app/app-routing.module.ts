@@ -8,12 +8,12 @@ import { UseCaseDetailsComponent } from './components/UCDetails/use-case-details
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'UCChoice',
+    redirectTo: 'Home',
     pathMatch: 'full'
   },
  
   {
-    path: 'UCChoice',
+    path: 'Home',
     // canActivate: [AuthGuard],
     component: GridListUCComponent,
   },

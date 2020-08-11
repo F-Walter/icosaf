@@ -1,1 +1,61 @@
-<router-outlet></router-outlet>
+<app-toolbar>
+</app-toolbar>
+
+<mat-sidenav-container class="example-container">
+
+    <mat-sidenav mode="side" opened="true">
+
+        <mat-selection-list #iconList [multiple]="false"
+            (selectionChange)="onSelect(iconList.selectedOptions.selected[0].value)">
+
+
+            <mat-list-option #dashboardIcon value="dashboard-icon">
+                <div *ngIf="dashboardIcon.selected; then dashboardSelectedBlock else dashboardBlock"></div>
+                <ng-template #dashboardSelectedBlock>
+                    <mat-icon svgIcon="dashboard-icon-selected" aria-hidden="false"
+                        aria-label="Example of dashboard SVG icon selected"></mat-icon>
+                </ng-template>
+                <ng-template #dashboardBlock>
+                    <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon> -->
+                    <mat-icon svgIcon="dashboard-icon" aria-hidden="false" aria-label="Example of dashboard SVG icon">
+                    </mat-icon>
+                </ng-template>
+            </mat-list-option>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-option #settingIcon value="setting-icon">
+
+                <div *ngIf="settingIcon.selected; then settingSelectedBlock else settingBlock"></div>
+                <ng-template #settingSelectedBlock>
+                    <mat-icon svgIcon="setting-icon-selected" aria-hidden="false"
+                        aria-label="Example of setting SVG icon">
+                    </mat-icon>
+
+                </ng-template>
+                <ng-template #settingBlock>
+                    <mat-icon svgIcon="setting-icon" aria-hidden="false" aria-label="Example of setting SVG icon">
+                    </mat-icon>
+                </ng-template>
+
+            </mat-list-option>
+
+            <mat-divider></mat-divider>
+
+            <mat-divider id="dividerLogout"></mat-divider>
+            <mat-list-option id="logoutIcon" value="logout-icon">
+
+                <mat-icon svgIcon="logout-icon" aria-hidden="false" aria-label="Example of logout SVG icon"></mat-icon>
+                <mat-divider></mat-divider>
+
+            </mat-list-option>
+
+        </mat-selection-list>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>
