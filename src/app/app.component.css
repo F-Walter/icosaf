@@ -3,7 +3,9 @@ mat-sidenav {
     background-color: #2c303b;
     width: 3.3%;
 }
-
+mat-selection-list{
+    height: 100%;
+}
 mat-list-option[aria-selected="true"] {
     background: white;
 }
@@ -24,4 +26,10 @@ mat-list-option[aria-selected="true"] {
 #dividerLog {
     /* position: relative;
     width: 99%; */
+}
+
+#verticalFiller{
+    display: flex;
+    height: 77%;
+    width: 99%;
 }

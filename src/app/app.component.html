@@ -5,7 +5,8 @@
 
     <mat-sidenav mode="side" opened="true">
 
-        <mat-selection-list #iconList [multiple]="false"
+        <mat-selection-list #iconList
+            [multiple]="false"
             (selectionChange)="onSelect(iconList.selectedOptions.selected[0].value)">
 
 
@@ -46,6 +47,11 @@
             <!-- TODO: solve issue with log icon -->
 
             <mat-divider></mat-divider>
+
+            <span id="verticalFiller"></span>
+            
+            <mat-divider></mat-divider>
+
 
             <mat-list-option id="logIcon" value="logout-icon" (click)="changeLogged()">
                 <div *ngIf="isLogged(); then logged else unlogged"></div>
