@@ -6,6 +6,9 @@ import { Observable } from "rxjs";
 })
 export class SseServiceService {
 
+
+  //NgZone to alert Angular when an event occurs because it happens outside of the framework.
+  
   constructor(private ngZone: NgZone) { }
 
   /**

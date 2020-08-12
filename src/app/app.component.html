@@ -11,6 +11,7 @@
 
 
             <mat-list-option #dashboardIcon value="dashboard-icon">
+               
                 <div *ngIf="dashboardIcon.selected; then dashboardSelectedBlock else dashboardBlock"></div>
                 <ng-template #dashboardSelectedBlock>
                     <mat-icon svgIcon="dashboard-icon-selected" aria-hidden="false"
@@ -18,7 +19,7 @@
                 </ng-template>
                 <ng-template #dashboardBlock>
                     <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon> -->
-                    <mat-icon svgIcon="dashboard-icon" aria-hidden="false" aria-label="Example of dashboard SVG icon">
+                    <mat-icon svgIcon="dashboard-icon" aria-hidden="false" aria-label="Example of dashboard SVG icon" (click)="navigateTo('dashboard')">
                     </mat-icon>
                 </ng-template>
             </mat-list-option>

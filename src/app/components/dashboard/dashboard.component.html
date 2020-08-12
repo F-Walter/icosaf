@@ -1,0 +1,52 @@
+<div class="cardsContainer">
+    <mat-card class="example-card" *ngFor="let workArea of workAreas">
+        <mat-card-header>
+            <mat-card-title>
+                <p>Area di Lavoro {{workArea.id}}</p>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="horizontalContainer">
+                <mat-list role="list">
+                    <mat-list-item role="listitem">Item 1</mat-list-item>
+                    <mat-list-item role="listitem">Item 2</mat-list-item>
+                    <mat-list-item role="listitem">Item 3</mat-list-item>
+                </mat-list>
+
+                <div name="statistics">
+                    <mat-list role="list">
+                        <mat-list-item role="listitem">
+                            <mat-accordion>
+
+                                <mat-expansion-panel>
+
+                                    <mat-expansion-panel-header>
+
+                                        <mat-panel-title>
+                                            Tempo ciclo medio
+                                        </mat-panel-title>
+
+                                    </mat-expansion-panel-header>
+                                    <p>I'm visible because I am open</p>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+
+
+                        </mat-list-item>
+                        <mat-list-item role="listitem">Saturazione media</mat-list-item>
+                        <mat-list-item role="listitem">JPH media</mat-list-item>
+                    </mat-list>
+                </div>
+            </div>
+        </mat-card-content>
+        <!-- <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+    </mat-card-actions> -->
+    </mat-card>
+
+
+
+
+</div>

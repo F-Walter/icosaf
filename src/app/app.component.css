@@ -33,3 +33,10 @@ mat-list-option[aria-selected="true"] {
     height: 77%;
     width: 99%;
 }
+mat-sidenav-content{
+        margin: 5%;
+        height: 100%;
+        min-height: 80vh;
+    
+}
+

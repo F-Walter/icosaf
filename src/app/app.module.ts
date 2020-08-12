@@ -20,9 +20,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatSidenavModule} from '@angular/material/sidenav'; 
-import {HttpClientModule} from '@angular/common/http';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
+
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import {HttpClientModule} from '@angular/common/http';
     ProblemModalComponent,
     AppComponent,
     ToolbarComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +52,7 @@ import {HttpClientModule} from '@angular/common/http';
     MatGridListModule,
     MatSidenavModule,
     HttpClientModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

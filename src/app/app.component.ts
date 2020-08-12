@@ -1,8 +1,8 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SseServiceService } from './services/SseService/sse-service.service';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 export class AppComponent implements OnInit {
   logged: boolean
 
-
-  //NgZone to alert Angular when an event occurs because it happens outside of the framework.
-  constructor(private sseService: SseServiceService, private ngZone: NgZone, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute) {
+  constructor(private sseService: SseServiceService,
+    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
+    private activatedRoute: ActivatedRoute, private router: Router) {
     this.logged = false
 
     iconRegistry.addSvgIcon(
@@ -40,13 +40,10 @@ export class AppComponent implements OnInit {
     this.sseService
       .getServerSentEvent("http://icosaf.cloud.reply.eu:4200/api")
       .subscribe(data => console.log(data));
-
-
-
     console.log(this.activatedRoute.url)
   }
 
-  changeLogged(){
+  changeLogged() {
     this.logged = !this.logged
   }
 
@@ -56,5 +53,11 @@ export class AppComponent implements OnInit {
 
   onSelect(iconSelected) {
     console.log(iconSelected)
+  }
+
+
+  navigateTo(url: string) {
+    this.router.navigate([url])
+
   }
 }
