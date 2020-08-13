@@ -1,1 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="17" viewBox="0 0 17 17"><defs><style>.a{fill:#fff;}.b{clip-path:url(#a);}</style><clipPath id="a"><rect class="a" width="17" height="17" transform="translate(17.5 17.5)"/></clipPath></defs><g class="b" transform="translate(-17.5 -17.5)"><g transform="translate(17.5 17.5)"><rect class="a" width="8.112" height="8.112" rx="0.687"/><rect class="a" width="8.112" height="8.112" rx="0.687" transform="translate(8.888)"/><rect class="a" width="8.112" height="8.112" rx="0.687" transform="translate(0 8.888)"/><rect class="a" width="8.112" height="8.112" rx="0.687" transform="translate(8.888 8.888)"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="17" viewBox="0 0 17 17">
+    <defs>
+        <style>.a{fill:#fff;}.b{clip-path:url(#a);}</style>
+        <clipPath id="a">
+            <rect class="a" width="17" height="17" transform="translate(17.5 17.5)" />
+        </clipPath>
+    </defs>
+    <g class="b" transform="translate(-17.5 -17.5)">
+        <g transform="translate(17.5 17.5)">
+            <rect class="a" width="8.112" height="8.112" rx="0.687" />
+            <rect class="a" width="8.112" height="8.112" rx="0.687" transform="translate(8.888)" />
+            <rect class="a" width="8.112" height="8.112" rx="0.687" transform="translate(0 8.888)" />
+            <rect class="a" width="8.112" height="8.112" rx="0.687" transform="translate(8.888 8.888)" />
+        </g>
+    </g>
+</svg>

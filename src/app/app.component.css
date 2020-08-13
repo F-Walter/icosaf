@@ -3,9 +3,11 @@ mat-sidenav {
     background-color: #2c303b;
     width: 3.3%;
 }
-mat-selection-list{
+
+mat-selection-list {
     height: 100%;
 }
+
 mat-list-option[aria-selected="true"] {
     background: white;
 }
@@ -28,15 +30,13 @@ mat-list-option[aria-selected="true"] {
     width: 99%; */
 }
 
-#verticalFiller{
+#verticalFiller {
     display: flex;
     height: 77%;
     width: 99%;
 }
-mat-sidenav-content{
-        margin: 5%;
-        height: 100%;
-        min-height: 80vh;
-    
-}
 
+mat-sidenav-content {
+    height: 100%;
+    min-height: 95vh;
+}

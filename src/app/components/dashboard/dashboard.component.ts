@@ -10,11 +10,13 @@ import { Agv } from 'src/app/model/agv/agv';
 export class DashboardComponent implements OnInit {
 
   workAreas: WorkArea[]
+  progress:number
 
   constructor() {
 
+    this.progress = 75
     this.workAreas= []
-    
+   
     let w1 = new WorkArea(0, [new Agv(0), new Agv(1)])
     let w2 = new WorkArea(1, [new Agv(2), new Agv(3)])
 

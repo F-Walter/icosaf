@@ -32,7 +32,9 @@ export class AppComponent implements OnInit {
     iconRegistry.addSvgIcon(
       'logout-icon',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/logoutIcon.svg'));
-
+      iconRegistry.addSvgIcon(
+        'error-icon',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/img/errorIcon.svg'));
   }
 
   ngOnInit() {

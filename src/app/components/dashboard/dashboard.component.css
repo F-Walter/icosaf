@@ -3,25 +3,60 @@
     margin: 2%;
 }
 
-.example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
+.cardsContainer {
+    width: 45%;
 }
 
-.cardsContainer {
-    width: 25%;
-}
-.horizontalContainer{
+.horizontalContainer {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-
 }
+
 p {
     font-size: medium;
 }
 
-.mat-form-field + .mat-form-field {
+.mat-form-field+.mat-form-field {
     margin-left: 8px;
+}
+
+mat-list {
+    width: 50%;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: #88B861;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    background: white;
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 2px;
+}
+
+mat-progress-bar {
+    height: 0.3em;
+}
+
+.percentageProgressBar {
+    color: #88B861;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: small;
+    font-weight: bold;
+    position: relative;
+}
+
+mat-icon {
+    position: relative;
+    height: 13px;
+    width: 13px;
+    top: -12px;
+}
+
+:host /deep/ .mat-list-item-content {
+    padding: 0!important;
   }
