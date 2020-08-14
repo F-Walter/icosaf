@@ -16,6 +16,9 @@
 
 p {
     font-size: medium;
+    width: 55%; 
+    margin-right: 2%; 
+    margin-top: 0;
 }
 
 .mat-form-field+.mat-form-field {
@@ -48,15 +51,26 @@ mat-progress-bar {
     font-size: small;
     font-weight: bold;
     position: relative;
+    height: 13px;
+    width: 13px;
+    top: -12px;
+    right: 14px;
 }
 
 mat-icon {
     position: relative;
     height: 13px;
     width: 13px;
-    top: -12px;
+    /*top: -12px;*/
+    top: 0px;
 }
 
 :host /deep/ .mat-list-item-content {
     padding: 0!important;
   }
+.dangerIcon{
+    margin-right: 5%;
+}
+.dangerIconWrapper{
+    width:25%;
+}

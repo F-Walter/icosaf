@@ -9,20 +9,35 @@
             <div class="horizontalContainer">
                 <mat-list role="list">
                     <mat-list-item *ngFor="let agv of workArea.agvList" role="listitem">
-                        <p #paragrafo style="width: 25%; margin-right: 2%; margin-top: 0;">AGV {{workArea.id}}.{{agv.id}} </p>
+                        <p #paragrafo>
+                            <span class="dangerIconWrapper">
+                            <mat-icon *ngIf="agv.getError()" svgIcon="danger-icon" aria-hidden="false"
+                            aria-label="Example danger SVG icon" class="dangerIcon">
+                            </mat-icon>
+                            </span>
+                            AGV
+                            {{workArea.id}}.{{agv.id}} </p>
                         <div style="width: 100%;">
-                            <mat-progress-bar #progressVal mode="determinate" [value]="progress">
+                            <mat-progress-bar #progressVal mode="determinate" [value]="agv.getProgress()">
                             </mat-progress-bar>
-                            <span class="percentageProgressBar" [ngStyle]="{'left':  (progress) +'%'}">
-                                <mat-icon svgIcon="error-icon" aria-hidden="false" aria-label="Example error SVG icon">
-                                </mat-icon>
+                            <span class="percentageProgressBar" [ngStyle]="{'left':  (agv.getProgress()) +'%'}">
+                                <div *ngIf="agv.getError(); then thenBlock else elseBlock"></div>
+                                <ng-template #thenBlock>
+                                    <mat-icon *ngIf="agv.getError()" svgIcon="error-icon" aria-hidden="false"
+                                        aria-label="Example error SVG icon">
+                                    </mat-icon>
+                                </ng-template>
+                                <ng-template #elseBlock><span class="percentageProgressBar"
+                                        >{{agv.getProgress()}}%
+                                    </span> </ng-template>
+
+
                             </span>
 
                         </div>
 
 
-                        <!-- <span class="percentageProgressBar" [ngStyle]="{'left': (progress + 7) + '%'}">{{progress}}%
-                        </span> -->
+
 
                     </mat-list-item>
                 </mat-list>

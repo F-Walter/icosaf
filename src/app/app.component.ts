@@ -35,6 +35,9 @@ export class AppComponent implements OnInit {
       iconRegistry.addSvgIcon(
         'error-icon',
         sanitizer.bypassSecurityTrustResourceUrl('assets/img/errorIcon.svg'));
+        iconRegistry.addSvgIcon(
+          'danger-icon',
+          sanitizer.bypassSecurityTrustResourceUrl('assets/img/dangerIcon.svg'));
   }
 
   ngOnInit() {
