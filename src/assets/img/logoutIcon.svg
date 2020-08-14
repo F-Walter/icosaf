@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21" height="21" viewBox="0 0 21 21">
     <defs>
-        <style>.logout-a{fill:#fff;}.logout-b{clip-path:url(#a);}.logout-c,.d{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;}.logout-c{stroke-width:1.721px;}.logout-d{stroke-width:1.944px;}</style>
+        <style>.logout-a{fill:#fff;}.logout-b{clip-path:url(#logout-a);}.logout-c,.logout-d{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;}.logout-c{stroke-width:1.721px;}.logout-d{stroke-width:1.944px;}</style>
         <clipPath id="logout-a">
             <rect class="logout-a" width="21" height="21" transform="translate(13.5 15.5)" />
         </clipPath>

@@ -8,10 +8,8 @@
         <mat-selection-list #iconList [multiple]="false"
             (selectionChange)="onSelect(iconList.selectedOptions.selected[0].value)">
 
-
             <mat-list-option #dashboardIcon value="dashboard-icon">
-
-                <div *ngIf="dashboardIcon.selected; then dashboardSelectedBlock else dashboardBlock"></div>
+                <div *ngIf="dashboardIcon.selected === true; then dashboardSelectedBlock else dashboardBlock"></div>
                 <ng-template #dashboardSelectedBlock>
                     <mat-icon svgIcon="dashboard-icon-selected" aria-hidden="false"
                         aria-label="Example of dashboard SVG icon selected"></mat-icon>
@@ -28,13 +26,13 @@
 
             <mat-list-option #settingIcon value="setting-icon">
 
-                <div *ngIf="settingIcon.selected; then settingSelectedBlock else settingBlock"></div>
+                <div *ngIf="settingIcon.selected === true; then settingSelectedBlock else settingBlock"></div>
                 <ng-template #settingSelectedBlock>
                     <mat-icon svgIcon="setting-icon-selected" aria-hidden="false"
                         aria-label="Example of setting SVG icon">
                     </mat-icon>
-
                 </ng-template>
+
                 <ng-template #settingBlock>
                     <mat-icon svgIcon="setting-icon" aria-hidden="false" aria-label="Example of setting SVG icon">
                     </mat-icon>
@@ -43,9 +41,6 @@
             </mat-list-option>
 
             <mat-divider></mat-divider>
-
-
-            <!-- TODO: solve issue with log icon -->
 
             <mat-divider></mat-divider>
 
@@ -57,12 +52,14 @@
             <mat-list-option id="logIcon" value="logout-icon" (click)="changeLogged()">
                 <div *ngIf="isLogged(); then logged else unlogged"></div>
                 <ng-template #logged>
-                    <mat-icon svgIcon="logged-icon" aria-hidden="false" aria-label="Example of logged SVG icon">
-                    </mat-icon>
+                    <mat-icon svgIcon="logout-icon" aria-hidden="false" aria-label="Example of logged SVG icon"
+                        (click)="openDialog()"></mat-icon>
+                    <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" style="width: 13px; height: 13px;">login</mat-icon> -->
                 </ng-template>
                 <mat-divider></mat-divider>
                 <ng-template #unlogged>
-                    <mat-icon svgIcon="logout-icon" aria-hidden="false" aria-label="Example of logout SVG icon">
+                    <mat-icon svgIcon="login-icon" aria-hidden="false" aria-label="Example of logout SVG icon"
+                        (click)="openDialog()">
                     </mat-icon>
                     <mat-divider></mat-divider>
                 </ng-template>

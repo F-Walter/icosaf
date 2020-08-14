@@ -4,7 +4,7 @@
 }
 
 .cardsContainer {
-    width: 45%;
+    width: 40%;
 }
 
 .horizontalContainer {
@@ -16,8 +16,7 @@
 
 p {
     font-size: medium;
-    width: 55%; 
-    margin-right: 2%; 
+    width: 50%;
     margin-top: 0;
 }
 
@@ -51,10 +50,10 @@ mat-progress-bar {
     font-size: small;
     font-weight: bold;
     position: relative;
-    height: 13px;
-    width: 13px;
+    height: 2%;
+    width: 2%;
     top: -12px;
-    right: 14px;
+    right: 5%;
 }
 
 mat-icon {
@@ -67,10 +66,19 @@ mat-icon {
 
 :host /deep/ .mat-list-item-content {
     padding: 0!important;
-  }
-.dangerIcon{
+}
+
+.dangerIcon {
     margin-right: 5%;
 }
-.dangerIconWrapper{
-    width:25%;
+
+.dangerIconWrapper {
+    width: 20%;
+    display: inline-block;
+}
+
+/*CARD style*/
+
+.titleCard {
+    width: 100%;
 }

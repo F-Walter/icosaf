@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { GridListUCComponent } from './components/grid-list/grid-list-uc.component';
 import { UseCaseDetailsComponent } from './components/UCDetails/use-case-details.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoginDialogComponent } from './components/login/login-dialog/login-dialog.component';
 
 
 
@@ -12,7 +13,7 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
- 
+
   {
     path: 'home',
     // canActivate: [AuthGuard],
@@ -27,6 +28,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
   },
+
   // {
   //   path: 'logged',
   //   children: [

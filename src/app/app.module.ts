@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatCardModule } from '@angular/material/card';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { LoginDialogComponent } from './components/login/login-dialog/login-dialog.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     AppComponent,
     ToolbarComponent,
     DashboardComponent,
+    LoginDialogComponent,
   ],
   imports: [
     BrowserModule,
