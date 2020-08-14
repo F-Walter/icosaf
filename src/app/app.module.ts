@@ -26,7 +26,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatCardModule } from '@angular/material/card';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { LoginDialogComponent } from './components/login/login-dialog/login-dialog.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+import {MatFormFieldModule} from '@angular/material/form-field'; 
 
 @NgModule({
   declarations: [
@@ -56,6 +58,9 @@ import { LoginDialogComponent } from './components/login/login-dialog/login-dial
     HttpClientModule,
     MatCardModule,
     MatProgressBarModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

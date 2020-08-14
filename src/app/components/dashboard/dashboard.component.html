@@ -11,9 +11,9 @@
                     <mat-list-item *ngFor="let agv of workArea.agvList" role="listitem">
                         <p #paragrafo>
                             <span class="dangerIconWrapper">
-                            <mat-icon *ngIf="agv.getError()" svgIcon="danger-icon" aria-hidden="false"
-                            aria-label="Example danger SVG icon" class="dangerIcon">
-                            </mat-icon>
+                                <mat-icon *ngIf="agv.getError()" svgIcon="danger-icon" aria-hidden="false"
+                                    aria-label="Example danger SVG icon" class="dangerIcon">
+                                </mat-icon>
                             </span>
                             AGV
                             {{workArea.id}}.{{agv.id}} </p>
@@ -21,19 +21,25 @@
                             <mat-progress-bar #progressVal mode="determinate" [value]="agv.getProgress()">
                             </mat-progress-bar>
                             <span class="percentageProgressBar" [ngStyle]="{'left':  (agv.getProgress()) +'%'}">
-                                <div *ngIf="agv.getError(); then thenBlock else elseBlock"></div>
-                                <ng-template #thenBlock>
+                                <div *ngIf="agv.getError(); then errorBlock else correctBlock"></div>
+                                <ng-template #errorBlock>
                                     <mat-icon *ngIf="agv.getError()" svgIcon="error-icon" aria-hidden="false"
                                         aria-label="Example error SVG icon">
                                     </mat-icon>
                                 </ng-template>
-                                <ng-template #elseBlock><span class="percentageProgressBar"
-                                        >{{agv.getProgress()}}%
-                                    </span> </ng-template>
-
+                                <ng-template #correctBlock>
+                                    <div *ngIf="agv.getProgress() === 100; then successBlock else progressBlock"></div>
+                                    <ng-template #successBlock>
+                                        <mat-icon svgIcon="success-icon" aria-hidden="false"
+                                            aria-label="Example error SVG icon">
+                                        </mat-icon>
+                                    </ng-template>
+                                    <ng-template #progressBlock>
+                                        <span class="percentageProgressBar">{{agv.getProgress()}}%
+                                        </span> </ng-template>
+                                </ng-template>
 
                             </span>
-
                         </div>
 
 

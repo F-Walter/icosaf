@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login-dialog',
@@ -17,6 +18,46 @@ export class LoginDialogComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+
+  form: FormGroup = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
+
+  submit() {
+    if (this.form.valid) {
+      this.save();
+    }
+  }
+  @Input() error: string | null;
+
+  save() {
+    // this.auth.login(this.form.value.email, this.form.value.password).subscribe(data => {
+
+    //   var sess = {};
+
+    //   sess["email"] = this.form.value.email;
+    //   sess["info"] = JSON.parse(atob(data["token"].split('.')[1]));
+    //   sess["token"] = data["token"]
+
+    //   localStorage.setItem("session", JSON.stringify(sess));
+      
+
+
+    // }, error => {
+    //   this.error = error.error;
+    // })
+
+          this.dialogRef.close();
+
+  }
+
+  close() {
+    this.dialogRef.close();
+
+  }
+
 
 }
 

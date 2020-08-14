@@ -21,6 +21,12 @@ mat-list-option[aria-selected="true"] {
 }
 
 #logIcon {
+    display: grid;
+        height: 48px;
+        width: 100%;
+        padding: 0;
+        position: relative;
+        justify-content: center;
     /* margin-top: 95%; */
     /* position: relative; */
 }

@@ -44,6 +44,9 @@ export class AppComponent implements OnInit {
     iconRegistry.addSvgIcon(
       'danger-icon',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/dangerIcon.svg'));
+      iconRegistry.addSvgIcon(
+        'success-icon',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/img/successIcon.svg'));  
   }
 
   ngOnInit() {
@@ -56,11 +59,12 @@ export class AppComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginDialogComponent, {
-      width: '250px'
+      width: '25%'
     });
   }
 
   changeLogged() {
+    this.openDialog()
     this.logged = !this.logged
   }
 
