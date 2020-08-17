@@ -40,12 +40,12 @@ export class AgvDetailsComponent implements OnInit {
   dataSource = PROBLEMS;
   columnsToDisplay = ['state', 'id', 'kit', 'problemsFound', 'button', 'hour'];
   expandedElement: Item | null;
-  constructor(public dialog: MatDialog) { }
+  
 
   displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'hours'];
   dataSourcePrelievi: MatTableDataSource<PrelieviInterface>
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     this.dataSourcePrelievi = new MatTableDataSource([{
       state: 0,
       components: "PN12345",
