@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openAgvDetails(agv: Agv) {
-    this.router.navigate(["home", { outlets: { dashboardContent: ["agv-details", agv.id] } }]);
+  openAgvDetails(workArea: WorkArea, agv: Agv) {
+    this.router.navigate(["home", { outlets: { dashboardContent: ["work-area", workArea.id, "agv-details", agv.id] } }]);
   }
 }

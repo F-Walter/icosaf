@@ -30,7 +30,7 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       {
-        path: 'agv-details/:id',
+        path: 'work-area/:workAreaId/agv-details/:agvId',
         component: AgvDetailsComponent,
         outlet: "dashboardContent"
       }

@@ -20,7 +20,7 @@
 
 p {
     font-size: medium;
-    width: 50%;
+    width: 40%;
     margin-top: 0;
 }
 
@@ -36,8 +36,12 @@ mat-list {
     background-color: #88B861;
 }
 
+::ng-deep .mat-progress-bar-background {
+    fill: transparent;
+}
+
 ::ng-deep .mat-progress-bar-buffer {
-    background: white;
+    background: transparent;
 }
 
 ::ng-deep .mat-progress-bar {
@@ -107,3 +111,8 @@ mat-progress-bar {
     margin-left: 5%;
     margin-right: 1%;
 }
+
+.agvLine:onclick {
+    background-color: #97AFC9;
+}
+

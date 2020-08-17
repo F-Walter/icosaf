@@ -11,7 +11,8 @@
                 <mat-card-content>
                     <div class="horizontalContainer">
                         <mat-list role="list">
-                            <mat-list-item *ngFor="let agv of workArea.agvList" role="listitem" (click)="openAgvDetails(agv)">
+                            <mat-list-item *ngFor="let agv of workArea.agvList" role="listitem" class="agvLine"
+                                (click)="openAgvDetails(workArea,agv)">
                                 <p #paragrafo>
                                     <span class="dangerIconWrapper">
                                         <mat-icon class="card-icon" *ngIf="agv.getError()" svgIcon="danger-icon"
@@ -41,19 +42,17 @@
                                                 </mat-icon>
                                             </ng-template>
                                             <ng-template #progressBlock>
-                                                <span class="percentageProgressBar">{{agv.getProgress()}}%
-                                                </span> </ng-template>
+                                                <span class="percentageProgressBar">{{agv.getProgress()}}%</span> 
+                                            </ng-template>
                                         </ng-template>
 
                                     </span>
                                 </div>
 
 
-
-
                             </mat-list-item>
                         </mat-list>
-                        <div name="statistics">
+                        <div class="statistics" hidden="true">
 
                             <mat-accordion>
                                 <mat-expansion-panel>
@@ -98,8 +97,8 @@
             </mat-card>
         </div>
         <div class="detailsContainer">
-        <router-outlet name="dashboardContent">
-        </router-outlet>
+            <router-outlet name="dashboardContent">
+            </router-outlet>
         </div>
     </div>
 </div>
