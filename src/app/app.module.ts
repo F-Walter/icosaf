@@ -28,7 +28,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { LoginDialogComponent } from './components/login/login-dialog/login-dialog.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { AgvDetailsComponent } from './components/agv-details/agv-details.component'; 
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     ToolbarComponent,
     DashboardComponent,
     LoginDialogComponent,
+    AgvDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkArea } from 'src/app/model/work-area/work-area';
 import { Agv } from 'src/app/model/agv/agv';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,17 +11,17 @@ import { Agv } from 'src/app/model/agv/agv';
 export class DashboardComponent implements OnInit {
 
   workAreas: WorkArea[]
-  progress:number
+  progress: number
 
-  constructor() {
+  constructor(private router: Router) {
 
     this.progress = 75
-    this.workAreas= []
-   
+    this.workAreas = []
+
     let w1 = new WorkArea(0, [new Agv(0), new Agv(1)])
     let w2 = new WorkArea(1, [new Agv(2), new Agv(3)])
     let w3 = new WorkArea(2, [new Agv(4), new Agv(5)])
-    let w4= new WorkArea(3, [new Agv(6), new Agv(7)])
+    let w4 = new WorkArea(3, [new Agv(6), new Agv(7)])
     let w5 = new WorkArea(4, [new Agv(8), new Agv(9)])
     let w6 = new WorkArea(5, [new Agv(10), new Agv(11)])
 
@@ -47,7 +48,7 @@ export class DashboardComponent implements OnInit {
     w6.agvList[0].setProgress(23)
     w6.agvList[1].setProgress(90)
     w6.agvList[1].setError(true)
-    
+
 
     this.workAreas.push(w1, w2, w3, w4, w5, w6)
 
@@ -56,4 +57,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openAgvDetails(agv: Agv) {
+    this.router.navigate(["dashboard", { outlets: { dashboardContent: ["agv-details", agv.id] } }]);
+  }
 }
