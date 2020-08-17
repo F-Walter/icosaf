@@ -58,6 +58,6 @@ export class DashboardComponent implements OnInit {
   }
 
   openAgvDetails(agv: Agv) {
-    this.router.navigate(["dashboard", { outlets: { dashboardContent: ["agv-details", agv.id] } }]);
+    this.router.navigate(["home", { outlets: { dashboardContent: ["agv-details", agv.id] } }]);
   }
 }

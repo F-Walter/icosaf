@@ -11,12 +11,12 @@ import { AgvDetailsComponent } from './components/agv-details/agv-details.compon
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'chooseUseCase',
     pathMatch: 'full'
   },
 
   {
-    path: 'home',
+    path: 'chooseUseCase',
     // canActivate: [AuthGuard],
     component: GridListUCComponent,
   },
@@ -26,7 +26,7 @@ const routes: Routes = [
     component: UseCaseDetailsComponent,
   },
   {
-    path: 'dashboard',
+    path: 'home',
     component: DashboardComponent,
     children: [
       {
