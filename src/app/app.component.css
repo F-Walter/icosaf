@@ -12,6 +12,15 @@ mat-list-option[aria-selected="true"] {
     background: white;
 }
 
+mat-list-option {
+    display: flex!important;
+    justify-content: center!important;
+}
+
+:host /deep/ .mat-list-text {
+    padding: 0!important;
+}
+
 .mat-divider {
     border-top-color: white;
 }
@@ -22,11 +31,11 @@ mat-list-option[aria-selected="true"] {
 
 #logIcon {
     display: grid;
-        height: 48px;
-        width: 100%;
-        padding: 0;
-        position: relative;
-        justify-content: center;
+    height: 48px;
+    width: 100%;
+    padding: 0;
+    position: relative;
+    justify-content: center;
     /* margin-top: 95%; */
     /* position: relative; */
 }
@@ -45,4 +54,99 @@ mat-list-option[aria-selected="true"] {
 mat-sidenav-content {
     height: 100%;
     min-height: 95vh;
+}
+
+/**************************************/
+
+.example-card {
+    max-width: 100%;
+    margin: 2%;
+}
+
+.cardsContainer {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.horizontalContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.externalHorizontalContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+}
+
+p {
+    font-size: medium;
+    width: 50%;
+    margin-top: 0;
+}
+
+.mat-form-field+.mat-form-field {
+    margin-left: 8px;
+}
+
+mat-list {
+    width: 50%;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: #88B861;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    background: white;
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 2px;
+}
+
+mat-progress-bar {
+    height: 0.3em;
+}
+
+.percentageProgressBar {
+    color: #88B861;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: small;
+    font-weight: bold;
+    position: relative;
+    height: 2%;
+    width: 2%;
+    top: -12px;
+    right: 5%;
+}
+
+.card-icon {
+    position: relative;
+    height: 13px;
+    width: 13px;
+    /*top: -12px;*/
+    top: 0px;
+}
+
+:host /deep/ .mat-list-item-content {
+    padding: 0!important;
+}
+
+.dangerIcon {
+    margin-right: 5%;
+}
+
+.dangerIconWrapper {
+    width: 20%;
+    display: inline-block;
+}
+
+/*CARD style*/
+
+.titleCard {
+    width: 100%;
 }
