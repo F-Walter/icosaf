@@ -1,44 +1,3 @@
-table {
-    width: 100%;
-}
-/* .mat-table{
-    width: 100%;
-}
-
-.normalColumn {
-    width: 10%;
-}
-
-.lastColumn {
-    text-align: end;
-}
-td {
-    height: 50px;
-    vertical-align: center;
-  }
-
-  mat-accordion{
-    height: 2%;
-    width: 80%;
-  }
-
-  #risolviButton{
-    text-align: center;
-  }
-
-  .fillspace{
-    margin-left: 25%;
-    margin-right: 25%;
-  } */
-
-
-
-
-  /* 
-  
-  Table
-  */
-
   table {
     width: 100%;
   }
@@ -114,6 +73,9 @@ img{
 }
 #listImages .mat-list-item {
   height: auto;
+}
+.errorType{
+    color: #c25127;
 }
 
 

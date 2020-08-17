@@ -82,11 +82,11 @@ export class AgvDetailsComponent implements OnInit {
 
 const PROBLEMS: Item[] = [
   {
-    state: 1,
+    state: 2,
     id: 'Oxygen',
     kit : 'PIPPO',
     hour: '15.9994',
-    problemsFound: 'Tipologia Errore',
+    problemsFound: 'Tipologia Problema',
     button:'',
     description: `Oxygen is a chemical element with problemsFound O and atomic number 8. It is a member of
          the chalcogen group on the periodic table, a highly reactive nonmetal, and an oxidizing
