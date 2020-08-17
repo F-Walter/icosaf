@@ -1,0 +1,11 @@
+table {
+    width: 100%;
+}
+
+.normalColumn {
+    width: 10%;
+}
+
+.lastColumn {
+    text-align: end;
+}
