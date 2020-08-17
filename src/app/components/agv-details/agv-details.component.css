@@ -21,8 +21,9 @@
   .example-element-detail {
     overflow: hidden;
     display: flex;
+    flex-direction: column;
     height: max-content;
-    justify-content: center;
+    align-items: center;
   }
 
   .example-element-diagram {
@@ -64,8 +65,9 @@
     flex-direction: row;
     justify-items: center;
     overflow: auto;
-    max-width: 80vh;
+    max-width: 90vh;
     height: 40vh;
+    align-self: flex-end;
   }
 
   img {
@@ -93,4 +95,7 @@
 
 .solveButton{
   background-color: #454C5E;
+}
+.rightContent{
+    align-self:flex-end;
 }
