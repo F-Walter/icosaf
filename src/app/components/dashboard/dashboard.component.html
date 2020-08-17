@@ -1,3 +1,4 @@
+<div class ="horizontalContainer">
 <div class="cardsContainer">
     <mat-card class="example-card" *ngFor="let workArea of workAreas">
         <mat-card-header>
@@ -90,9 +91,18 @@
         <button mat-button>SHARE</button>
     </mat-card-actions> -->
     </mat-card>
+</div>
 
 
-
-
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Problemi rilevati
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+    </mat-expansion-panel>
+</mat-accordion>
 
 </div>
