@@ -1,18 +1,18 @@
 <mat-accordion>
-    <mat-expansion-panel>
+    <mat-expansion-panel class="border">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Problemi rilevati
             </mat-panel-title>
         </mat-expansion-panel-header>
         <!-----------TABLE -->
-        <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
             <!-- State Column -->
             <ng-container matColumnDef="state">
-                <th mat-header-cell *matHeaderCellDef style="width: 5%;" class="normalColumn"> STATO </th>
+                <th mat-header-cell *matHeaderCellDef class="normalColumn"> STATO </th>
                 <td mat-cell *matCellDef="let element" class="normalColumn">
                     <div>
-                        <mat-icon svgIcon="error-icon"  aria-hidden="false" aria-label="Example home icon">
+                        <mat-icon svgIcon="error-icon" aria-hidden="false" aria-label="Example home icon">
                         </mat-icon>
                     </div>
                 </td>
@@ -20,38 +20,41 @@
 
             <!-- Id Column -->
             <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef style="width: 10%;" class="normalColumn"> Componente </th>
+                <th mat-header-cell *matHeaderCellDef class="normalColumn"> Componente </th>
                 <td mat-cell *matCellDef="let element" class="normalColumn"> <b> {{element.id | uppercase }} </b></td>
             </ng-container>
 
 
             <!-- Problems Column -->
             <ng-container matColumnDef="problemsFound">
-                <th mat-header-cell *matHeaderCellDef style="width: 25%;" class="normalColumn"> Problemi Rilevati </th>
+                <th mat-header-cell *matHeaderCellDef class="normalColumn"> Problemi Rilevati </th>
                 <td mat-cell *matCellDef="let element" class="normalColumn">
-                    <p class="errorType">{{element.problemsFound}}</p></td>
+                    <p class="errorType">{{element.problemsFound}}</p>
+                </td>
             </ng-container>
 
 
             <!-- Solve Button Column -->
             <ng-container matColumnDef="button">
-                <th mat-header-cell *matHeaderCellDef style="width: 7%;" class="normalColumn"> </th>
+                <th mat-header-cell *matHeaderCellDef class="normalColumn"> </th>
                 <td mat-cell *matCellDef="let element" class="normalColumn">
-                    <button *ngIf="element.state==2" name="risolvi" mat-raised-button color="primary"
-                        (click)="solve(element)">RISOLVI</button>
+                    <button *ngIf="element.state==2" name="risolvi" mat-raised-button class="solveButton"
+                        (click)="solve(element)">
+                        RISOLVI
+                    </button>
                 </td>
             </ng-container>
 
             <!-- Kit Column -->
             <ng-container matColumnDef="kit">
-                <th mat-header-cell *matHeaderCellDef style="width: 10%;" class="normalColumn"> Kit </th>
+                <th mat-header-cell *matHeaderCellDef class="normalColumn"> Kit </th>
                 <td mat-cell *matCellDef="let element" class="normalColumn"> {{element.kit}}</td>
             </ng-container>
 
 
             <!-- Hour Column -->
-            <ng-container matColumnDef="hour" >
-                <th mat-header-cell *matHeaderCellDef style="width: 7%;" class="lastColumn"> Ora </th>
+            <ng-container matColumnDef="hour">
+                <th mat-header-cell *matHeaderCellDef class="lastColumn"> Ora </th>
                 <td mat-cell *matCellDef="let element" class="lastColumn"> {{element.hour}} </td>
             </ng-container>
 
@@ -84,7 +87,7 @@
 </mat-accordion>
 
 <mat-accordion>
-    <mat-expansion-panel>
+    <mat-expansion-panel class="border">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Elenco prelievi
@@ -94,7 +97,7 @@
 
         <!-- Content of expansion panel -->
 
-        <table mat-table [dataSource]="dataSourcePrelievi" multiTemplateDataRows class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourcePrelievi" multiTemplateDataRows>
             <!-- State Column -->
             <ng-container matColumnDef="state">
                 <th mat-header-cell *matHeaderCellDef class="normalColumn"> STATO </th>
