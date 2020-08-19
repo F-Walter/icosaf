@@ -1,14 +1,16 @@
 /**************************************/
 
 .example-card {
-    max-width: 100%;
-    margin: 2%;
+    /* width: auto !important; */
+    margin-bottom: 5%;
 }
 
 .cardsContainer {
-    width: 45%;
+    width: auto;
     display: flex;
     flex-direction: column;
+    background-color: #E8E9EE;
+    padding: 20px;
 }
 
 p {

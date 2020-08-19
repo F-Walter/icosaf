@@ -61,11 +61,18 @@ export class DashboardComponent implements OnInit {
 
   openAgvDetails(workArea: WorkArea, agv: Agv) {
     this.router.navigate(["home", { outlets: { dashboardContent: ["work-area", workArea.id, "agv-details", agv.id] } }]);
+
+    this.selectedWorkArea = workArea
+    event.stopPropagation();
   }
 
   selectWorkArea(workArea: WorkArea) {
-    if (this.selectedWorkArea == workArea)
+    if (this.selectedWorkArea == workArea) {
+      //unselect the card
       this.selectedWorkArea = null
+      // remove details about card
+      this.router.navigate(["home"])
+    }
     else
       this.selectedWorkArea = workArea
   }
