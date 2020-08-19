@@ -15,8 +15,9 @@ export class DashboardComponent implements OnInit {
 
   selectedWorkArea: WorkArea
 
-  constructor(private router: Router) {
 
+  constructor(private router: Router) {
+  
     this.progress = 75
     this.workAreas = []
 
@@ -77,3 +78,5 @@ export class DashboardComponent implements OnInit {
       this.selectedWorkArea = workArea
   }
 }
+
+

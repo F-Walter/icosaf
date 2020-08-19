@@ -31,6 +31,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AgvDetailsComponent } from './components/agv-details/agv-details.component';
 import { ProblemImageComponent } from './components/agv-details/error-image-modal/problem-image.component'; 
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,8 @@ import { ProblemImageComponent } from './components/agv-details/error-image-moda
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
+    MatCarouselModule.forRoot(),
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,19 +8,23 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ProblemImageComponent implements OnInit {
 
-
-
-  imageSrc: string
+  slides: Slide[]
 
   constructor(private dialogRef: MatDialogRef<ProblemImageComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
 
-    if (data.imageSrc)
-      this.imageSrc = data.imageSrc
+    this.slides = []
 
+    if (data.images)
+    this.slides = [...data.images]
+    
   }
 
   ngOnInit(): void {
   }
-
 }
+
+export interface Slide {
+  image: string
+}
+

@@ -3,7 +3,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProblemModalComponent } from '../UCDetails/modal/problem-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
-import { ProblemImageComponent } from './error-image-modal/problem-image.component';
+import { ProblemImageComponent, Slide } from './error-image-modal/problem-image.component';
 
 export interface Item {
   state: number; // 0 nessun problema or problema risolto // 1 problema // 2 componente non ancora considerato //3 loading
@@ -44,14 +44,18 @@ export class AgvDetailsComponent implements OnInit {
   expandedElement: Item | null;
 
 
+
+
   displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'hours'];
   dataSourcePrelievi: MatTableDataSource<PrelieviInterface>
-  problems: string[];
+  problems: Slide[];
 
   constructor(public dialog: MatDialog, public imageDialog: MatDialog) {
-    this.problems = [
-      "../../../assets/img/errorIcon.svg", "../../../assets/img/dangerIcon.svg", "../../../assets/img/errorIcon.svg"
-    ]
+
+    this.problems = []
+    this.problems.push({ image: "../../../assets/img/errorIcon.svg" },
+      { image: "../../../assets/img/dangerIcon.svg" },
+      { image: "../../../assets/img/settingIconSelected.svg" })
 
 
     this.dataSourcePrelievi = new MatTableDataSource([{
@@ -87,7 +91,7 @@ export class AgvDetailsComponent implements OnInit {
     this.dialog.open(ProblemModalComponent);
   }
 
-  openImage(imageSrc: string) {
+  openImage(imageSrc: Slide) {
     console.log(imageSrc)
     const dialogConfig = new MatDialogConfig();
 
@@ -98,8 +102,17 @@ export class AgvDetailsComponent implements OnInit {
     dialogConfig.panelClass = "imageModal"
 
 
+    let imageArray = []
+
+    imageArray.push(imageSrc)
+
+    this.problems.forEach(element => {
+      if (element.image != imageSrc.image)
+        imageArray.push(element)
+    });
+
     dialogConfig.data = {
-      imageSrc: imageSrc
+      images: imageArray
     };
     this.imageDialog.open(ProblemImageComponent, dialogConfig)
   }
