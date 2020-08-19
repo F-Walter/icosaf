@@ -83,19 +83,24 @@
     color: #c25127;
   }
 
-  .mat-raised-button{
+  .mat-raised-button {
     color: white !important;
   }
 
-  .border{
+  .border {
     border-width: 1px;
     border-color: black;
     border-style: solid;
-}
+  }
 
-.solveButton{
-  background-color: #454C5E;
-}
-.rightContent{
-    align-self:flex-end;
-}
+  .solveButton {
+    background-color: #454C5E;
+  }
+
+  .rightContent {
+    align-self: flex-end;
+  }
+
+  mat-accordion {
+    margin: 2%
+  }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProblemModalComponent } from '../UCDetails/modal/problem-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { ProblemImageComponent } from './error-image-modal/problem-image.component';
 
 export interface Item {
   state: number; // 0 nessun problema or problema risolto // 1 problema // 2 componente non ancora considerato //3 loading
@@ -40,12 +41,12 @@ export class AgvDetailsComponent implements OnInit {
   dataSource = PROBLEMS;
   columnsToDisplay = ['state', 'id', 'kit', 'problemsFound', 'button', 'hour'];
   expandedElement: Item | null;
-  
+
 
   displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'hours'];
   dataSourcePrelievi: MatTableDataSource<PrelieviInterface>
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, public imageDialog: MatDialog) {
     this.dataSourcePrelievi = new MatTableDataSource([{
       state: 0,
       components: "PN12345",
@@ -57,7 +58,7 @@ export class AgvDetailsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  
+
   headerOfColumn(column: string) {
     switch (column) {
       case 'state':
@@ -71,25 +72,41 @@ export class AgvDetailsComponent implements OnInit {
       default:
         break;
     }
-
   }
-  solve(element: Item){
+
+
+  solve(element: Item) {
     event.stopPropagation();
     this.dialog.open(ProblemModalComponent);
   }
-  
+
+  openImage(imageSrc: string) {
+    console.log(imageSrc)
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = "50%"
+    dialogConfig.minHeight = "50%"
+    dialogConfig.panelClass="imageModal"
+    
+
+    dialogConfig.data = {
+      imageSrc: imageSrc
+    };
+    this.imageDialog.open(ProblemImageComponent,dialogConfig)
+  }
+
 }
 
 const PROBLEMS: Item[] = [
   {
     state: 2,
-    id: 'Oxygen',
-    kit : 'PIPPO',
-    hour: '15.9994',
+    id: 'PN 45335478',
+    kit: 'Nome kit',
+    hour: '10:59',
     problemsFound: 'Tipologia Problema',
-    button:'',
-    description: `Oxygen is a chemical element with problemsFound O and atomic number 8. It is a member of
-         the chalcogen group on the periodic table, a highly reactive nonmetal, and an oxidizing
-         agent that readily forms oxides with most elements as well as with other compounds.`
+    button: '',
+    description: `Problem description`
   },
 ]

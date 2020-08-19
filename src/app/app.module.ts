@@ -29,7 +29,8 @@ import { LoginDialogComponent } from './components/login/login-dialog/login-dial
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { AgvDetailsComponent } from './components/agv-details/agv-details.component'; 
+import { AgvDetailsComponent } from './components/agv-details/agv-details.component';
+import { ProblemImageComponent } from './components/agv-details/error-image-modal/problem-image.component'; 
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AgvDetailsComponent } from './components/agv-details/agv-details.compon
     DashboardComponent,
     LoginDialogComponent,
     AgvDetailsComponent,
+    ProblemImageComponent,
   ],
   imports: [
     BrowserModule,
