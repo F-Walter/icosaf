@@ -13,6 +13,8 @@ export class DashboardComponent implements OnInit {
   workAreas: WorkArea[]
   progress: number
 
+  selectedWorkArea: WorkArea
+
   constructor(private router: Router) {
 
     this.progress = 75
@@ -59,5 +61,12 @@ export class DashboardComponent implements OnInit {
 
   openAgvDetails(workArea: WorkArea, agv: Agv) {
     this.router.navigate(["home", { outlets: { dashboardContent: ["work-area", workArea.id, "agv-details", agv.id] } }]);
+  }
+
+  selectWorkArea(workArea: WorkArea) {
+    if (this.selectedWorkArea == workArea)
+      this.selectedWorkArea = null
+    else
+      this.selectedWorkArea = workArea
   }
 }

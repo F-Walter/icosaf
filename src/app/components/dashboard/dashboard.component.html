@@ -2,14 +2,14 @@
     <div class="externalHorizontalContainer">
 
         <div class="cardsContainer">
-            <mat-card class="example-card" *ngFor="let workArea of workAreas">
+            <mat-card class="example-card" *ngFor="let workArea of workAreas" (click)="selectWorkArea(workArea)" [ngStyle]="{'width.%': selectedWorkArea == workArea ? '100' : '50'}" >
                 <mat-card-header>
                     <mat-card-title>
                         <p class="titleCard">Area di Lavoro {{workArea.id}}</p>
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <div class="horizontalContainer">
+                    <div #card class="horizontalContainer">
                         <mat-list role="list">
                             <mat-list-item *ngFor="let agv of workArea.agvList" role="listitem" class="agvLine"
                                 (click)="openAgvDetails(workArea,agv)">
@@ -42,7 +42,7 @@
                                                 </mat-icon>
                                             </ng-template>
                                             <ng-template #progressBlock>
-                                                <span class="percentageProgressBar">{{agv.getProgress()}}%</span> 
+                                                <span class="percentageProgressBar">{{agv.getProgress()}}%</span>
                                             </ng-template>
                                         </ng-template>
 
@@ -52,8 +52,7 @@
 
                             </mat-list-item>
                         </mat-list>
-                        <div class="statistics" hidden="true">
-
+                        <div class="statistics" *ngIf="selectedWorkArea == workArea">
                             <mat-accordion>
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
