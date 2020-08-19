@@ -38,6 +38,7 @@ interface PrelieviInterface {
   ]
 })
 export class AgvDetailsComponent implements OnInit {
+
   dataSource = PROBLEMS;
   columnsToDisplay = ['state', 'id', 'kit', 'problemsFound', 'button', 'hour'];
   expandedElement: Item | null;
@@ -45,8 +46,14 @@ export class AgvDetailsComponent implements OnInit {
 
   displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'hours'];
   dataSourcePrelievi: MatTableDataSource<PrelieviInterface>
+  problems: string[];
 
   constructor(public dialog: MatDialog, public imageDialog: MatDialog) {
+    this.problems = [
+      "../../../assets/img/errorIcon.svg", "../../../assets/img/dangerIcon.svg", "../../../assets/img/errorIcon.svg"
+    ]
+
+
     this.dataSourcePrelievi = new MatTableDataSource([{
       state: 0,
       components: "PN12345",
@@ -88,13 +95,13 @@ export class AgvDetailsComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = "50%"
     dialogConfig.minHeight = "50%"
-    dialogConfig.panelClass="imageModal"
-    
+    dialogConfig.panelClass = "imageModal"
+
 
     dialogConfig.data = {
       imageSrc: imageSrc
     };
-    this.imageDialog.open(ProblemImageComponent,dialogConfig)
+    this.imageDialog.open(ProblemImageComponent, dialogConfig)
   }
 
 }
@@ -110,3 +117,5 @@ const PROBLEMS: Item[] = [
     description: `Problem description`
   },
 ]
+
+

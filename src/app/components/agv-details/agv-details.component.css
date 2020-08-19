@@ -73,6 +73,7 @@
   img {
     width: 25vh;
     height: 25vh;
+    margin-right: 20px;
   }
 
   #listImages .mat-list-item {

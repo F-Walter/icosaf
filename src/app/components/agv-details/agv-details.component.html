@@ -70,12 +70,7 @@
                         <div class="rightContent">
                             <p>IMMAGINI</p>
                             <mat-list id="listImages">
-                                <mat-list-item><img #image src="../../../assets/img/errorIcon.svg" (click)="openImage(image.src)" /> </mat-list-item>
-
-                                <mat-list-item><img src="../../../assets/img/errorIcon.svg" /> </mat-list-item>
-
-                                <mat-list-item><img src="../../../assets/img/errorIcon.svg" /> </mat-list-item>
-
+                                <mat-list-item *ngFor="let problemSrc of problems"><img [src]="problemSrc" (click)="openImage(problemSrc)" /> </mat-list-item>
                             </mat-list>
                             <p><u>Richiedi altre immagini</u></p>
 
