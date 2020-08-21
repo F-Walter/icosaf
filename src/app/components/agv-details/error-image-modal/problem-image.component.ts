@@ -22,6 +22,10 @@ export class ProblemImageComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  closeDialog(){
+    this.dialogRef.close()
+  }
 }
 
 export interface Slide {

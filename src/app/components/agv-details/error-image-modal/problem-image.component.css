@@ -9,12 +9,20 @@
     height: 100%;
     background-color: #D0D3DC;
 }
-img{
+
+img {
     width: 80%;
     height: 80%;
 }
 
-mat-carousel{
+mat-carousel {
     height: 100%;
     width: 100%;
+}
+
+#closeIcon {
+    position: fixed;
+    top: 8%;
+    left: 71%;
+    z-index: 5;
 }
