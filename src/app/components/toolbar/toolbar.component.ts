@@ -47,8 +47,13 @@ export class ToolbarComponent implements OnInit {
             break;
         }
 
-        if (i == segments.length - 1)
-          this.path += segments[i].substring(0, segments[i].length - 1)
+        if (i == segments.length - 1) {
+          if (segments[i].endsWith(")")) {
+            this.path += segments[i].substring(0, segments[i].length - 1)
+          } else {
+            this.path += segments[i]
+          }
+        }
         else
           this.path += segments[i] + " > "
       }
