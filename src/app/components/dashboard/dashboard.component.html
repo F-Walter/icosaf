@@ -99,7 +99,7 @@
             </mat-card-actions> -->
             </mat-card>
         </div>
-        <div class="detailsContainer">
+        <div class="detailsContainer" [ngStyle]="{'left.%':  selectedWorkArea == null ? '25' : '37'}">
             <router-outlet name="dashboardContent">
             </router-outlet>
         </div>
