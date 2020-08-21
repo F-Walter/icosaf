@@ -34,8 +34,21 @@ export class ToolbarComponent implements OnInit {
 
 
       for (let i = 0; i < segments.length; i++) {
+
+        console.log(segments[i])
+        switch (segments[i]) {
+          case "(dashboardContent:work-area":
+            segments[i] = "Area di Lavoro"
+            break;
+          case "agv-details":
+            segments[i] = "AGV"
+            break;
+          default:
+            break;
+        }
+
         if (i == segments.length - 1)
-          this.path += segments[i]
+          this.path += segments[i].substring(0, segments[i].length - 1)
         else
           this.path += segments[i] + " > "
       }

@@ -13,7 +13,7 @@
                     <div #card class="horizontalContainer">
                         <mat-list role="list">
                             <mat-list-item *ngFor="let agv of workArea.agvList" role="listitem" class="agvLine"
-                                (click)="openAgvDetails(workArea,agv)">
+                                (click)="openAgvDetails(workArea,agv)" [ngStyle]="{'background-color': selectedAgv == agv ? '#97AFC9' : 'transparent'}">
                                 <p #paragrafo>
                                     <span class="dangerIconWrapper">
                                         <mat-icon class="card-icon" *ngIf="agv.getError()" svgIcon="danger-icon"

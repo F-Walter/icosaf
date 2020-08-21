@@ -26,7 +26,7 @@ const routes: Routes = [
     component: UseCaseDetailsComponent,
   },
   {
-    path: 'home',
+    path: 'Home',
     component: DashboardComponent,
     children: [
       {

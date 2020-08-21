@@ -24,7 +24,7 @@ p {
 }
 
 mat-list {
-    width: 60%;
+    width: 100%;
 }
 
 ::ng-deep .mat-progress-bar-fill::after {
@@ -45,11 +45,13 @@ mat-list {
 
 mat-progress-bar {
     height: 0.3em;
+    margin-top: 10px;
 }
 mat-list-item
 {
-    width: 360px;
+    width: 90%!important;
 }
+
 .percentageProgressBar {
     color: #88B861;
     font-family: Roboto, Arial, sans-serif;
@@ -59,8 +61,7 @@ mat-list-item
     height: 2%;
     width: 2%;
     top: -12px;
-    right: 5%;
-  
+    right: 5%;  
 }
 
 .card-icon {
@@ -73,6 +74,7 @@ mat-list-item
 
 :host /deep/ .mat-list-item-content {
     padding: 0!important;
+    width: 100%;
 }
 
 .dangerIcon {
