@@ -2,7 +2,7 @@
 
     <h1 mat-dialog-title>Login</h1>
     <div mat-dialog-content>
-        <form [formGroup]="form" (ngSubmit)="submit()">
+        <form [formGroup]="loginForm" (ngSubmit)="submit()">
             <p>
                 <mat-form-field>
                     <input required type="text" matInput placeholder="Email" formControlName="email">
@@ -20,7 +20,7 @@
             </p>
 
             <div>
-                <button mat-raised-button color="primary">Login</button>
+                <button mat-raised-button color="primary">Confirm</button>
                 <button (click)="close()" class="cancel" mat-raised-button>Cancel</button>
             </div>
 
