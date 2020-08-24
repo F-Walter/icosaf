@@ -57,7 +57,7 @@
                             </mat-list-item>
                         </mat-list>
                         <div class="statistics" *ngIf="selectedWorkArea == workArea">
-                            <mat-accordion>
+                            <mat-accordion (click) = "openMeanCycleTime()">
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
@@ -68,7 +68,7 @@
                                 </mat-expansion-panel>
                             </mat-accordion>
 
-                            <mat-accordion>
+                            <mat-accordion (click) = "openMeanSat()">
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
@@ -79,7 +79,7 @@
                                 </mat-expansion-panel>
                             </mat-accordion>
 
-                            <mat-accordion>
+                            <mat-accordion (click) = "openMeanJPH()">
                                 <mat-expansion-panel>
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
@@ -99,7 +99,7 @@
             </mat-card-actions> -->
             </mat-card>
         </div>
-        <div class="detailsContainer" [ngStyle]="{'left.%':  selectedWorkArea == null ? '25' : '37'}">
+        <div class="detailsContainer" [ngStyle]="{'left.%':  selectedWorkArea == null ? '25' : '46'}">
             <router-outlet name="dashboardContent">
             </router-outlet>
         </div>

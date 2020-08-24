@@ -113,7 +113,7 @@ mat-list-item {
 .detailsContainer {
     position: fixed;
     left: 25%;
-    min-width: 55%;
+    min-width: 45%;
     padding-top: 16px;
     margin-left: 5%;
     margin-right: 1%;

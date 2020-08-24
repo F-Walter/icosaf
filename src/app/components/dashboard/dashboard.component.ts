@@ -80,6 +80,20 @@ export class DashboardComponent implements OnInit {
     else
       this.selectedWorkArea = workArea
   }
+
+  openMeanCycleTime(){
+    event.stopPropagation();
+
+  }
+  openMeanSat(){
+    event.stopPropagation();
+
+  }
+  openMeanJPH(){
+    event.stopPropagation();
+
+  }
+
 }
 
 
