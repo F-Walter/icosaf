@@ -8,21 +8,21 @@ import * as CryptoJS from 'crypto-js';
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    console.log("AAAAAAAAAA",CryptoJS.AES.encrypt("icosaf123", "a password").toString())
+
+  }
+
+
 
   login(username: string, password: string): Observable<Boolean> {
-  
-    const cipher = CryptoJS.createCipher('aes128', 'a password');    
-    var encrypted = cipher.update(password, 'utf8', 'hex');
-    encrypted += cipher.final('hex');
-   
-   
-    console.log("Criptato",encrypted);
-    
+
     const URL: string = "";
 
 
-    return this.http.post<Boolean>(URL, { login: username, pwd: password });
+
+    // return this.http.post<Boolean>(URL, { login: username, pwd: password });
+    return new Observable()
   }
 
 
