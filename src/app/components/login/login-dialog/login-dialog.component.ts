@@ -10,10 +10,22 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginDialogComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+
+  loginForm: FormGroup
+  public dialogRef: MatDialogRef<LoginDialogComponent>
+  hide = true;
+  
+  constructor(private authService: AuthService) {
+    this.loginForm = new FormGroup({
+      email: new FormControl(''),
+      password: new FormControl(''),
+    });
+  }
+
+
+
   ngOnInit(): void {
   }
-  public dialogRef: MatDialogRef<LoginDialogComponent>
 
 
   onNoClick(): void {
@@ -21,10 +33,7 @@ export class LoginDialogComponent implements OnInit {
   }
 
 
-  loginForm: FormGroup = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-  });
+
 
   submit() {
     if (this.loginForm.valid) {
