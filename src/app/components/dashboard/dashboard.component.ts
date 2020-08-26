@@ -65,31 +65,32 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(["Home", { outlets: { dashboardContent: ["work-area", workArea.id, "agv-details", agv.id] } }]);
 
     this.selectedAgv = agv
-    // this.selectedWorkArea = workArea
+    this.selectedWorkArea = workArea
     event.stopPropagation();
   }
 
   selectWorkArea(workArea: WorkArea) {
+    this.selectedAgv = null
     if (this.selectedWorkArea == workArea) {
       //unselect the card
       this.selectedWorkArea = null
-      this.selectedAgv = null
-      // remove details about card
-      this.router.navigate(["Home"])
     }
     else
       this.selectedWorkArea = workArea
+
+    // remove details about card
+    this.router.navigate(["Home"])
   }
 
-  openMeanCycleTime(){
+  openMeanCycleTime() {
     event.stopPropagation();
 
   }
-  openMeanSat(){
+  openMeanSat() {
     event.stopPropagation();
 
   }
-  openMeanJPH(){
+  openMeanJPH() {
     event.stopPropagation();
 
   }
