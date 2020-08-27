@@ -3,6 +3,7 @@ import { WorkArea } from 'src/app/model/work-area/work-area';
 import { Agv } from 'src/app/model/agv/agv';
 import { Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { EXPANSION_PANEL_ANIMATION_TIMING } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,25 +12,44 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   animations: [
     // Each unique animation requires its own trigger. The first argument of the trigger function is the name
     trigger('rotatedState', [
-      state('default', style({ transform: 'rotate(0)' })),
-      state('rotated', style({ transform: 'rotate(-180deg)' })),
-      transition('rotated => default', animate('800ms ease-out')),
-      transition('default => rotated', animate('800ms ease-in'))])
-    ]
+      state('collapsed', style({ transform: 'rotate(0)' })),
+      state('expanded', style({ transform: 'rotate(-180deg)' })),
+      transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ]),
+  ]
 })
 export class DashboardComponent implements OnInit {
 
 
-  state: string = 'default';
+  stateJPH: string
+  stateSat: string
+  stateCycleTime: string
 
-  expandPanel(expPanel){
+  expandPanel(expPanel, state) {
     expPanel.toggle()
-    this.rotate()
+    this.rotate(state)
   }
 
-    rotate() {
-        this.state = (this.state === 'default' ? 'rotated' : 'default');
+  rotate(state: string) {
+
+
+    switch (state) {
+      case 'stateSat':
+        this.stateSat = (this.stateSat === 'collapsed' ? 'expanded' : 'collapsed');
+        break;
+      case 'stateJPH':
+        this.stateJPH = (this.stateJPH === 'collapsed' ? 'expanded' : 'collapsed');
+
+        break;
+      case 'stateCycleTime':
+        this.stateCycleTime = (this.stateCycleTime === 'collapsed' ? 'expanded' : 'collapsed');
+
+        break;
+
+      default:
+        break;
     }
+  }
 
   workAreas: WorkArea[]
   progress: number
@@ -39,6 +59,10 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(private router: Router) {
+
+    this.stateJPH = 'collapsed';
+    this.stateSat = 'collapsed'
+    this.stateCycleTime = 'collapsed'
 
     this.progress = 75
     this.workAreas = []
@@ -103,14 +127,14 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(["Home"])
   }
 
-  openMeanCycleTime() {
+  openCycleTime() {
     event.stopPropagation();
   }
-  openMeanSat() {
+  openSat() {
     event.stopPropagation();
 
   }
-  openMeanJPH() {
+  openJPH() {
     event.stopPropagation();
 
   }

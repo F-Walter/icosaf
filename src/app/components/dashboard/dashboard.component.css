@@ -120,5 +120,9 @@ mat-list-item {
 }
 
 .mat-expansion-panel-header[aria-disabled="true"] {
-	color: rgba(0, 0, 0, 0.87);
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.clickableIcon {
+    cursor: pointer;
 }
