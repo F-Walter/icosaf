@@ -4,9 +4,6 @@ mat-sidenav {
     width: 4.5%;
 }
 
-mat-selection-list {
-    height: 100%;
-}
 
 mat-list-option[aria-selected="true"] {
     background: white;
@@ -29,16 +26,6 @@ mat-list-option {
     padding-top: 0px;
 }
 
-#logIcon {
-    display: grid;
-    height: 48px;
-    width: 100%;
-    padding: 0;
-    position: relative;
-    justify-content: center;
-    /* margin-top: 95%; */
-    /* position: relative; */
-}
 
 #dividerLog {
     /* position: relative;

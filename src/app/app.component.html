@@ -41,33 +41,34 @@
 
             <mat-divider></mat-divider>
 
-            <mat-divider></mat-divider>
-
-            
-
-
         </mat-selection-list>
+
         <span id="verticalFiller"></span>
 
-        <mat-divider></mat-divider>
 
-        <div *ngIf="isLogged(); then logged else unlogged"></div>
-        <ng-template #logged>
-            <div id="logIcon" value="logout-icon">
-                <mat-icon svgIcon="logout-icon" aria-hidden="false" aria-label="Example of logged SVG icon"
-                    (click)="changeLogged()"></mat-icon>
-            </div>
-        </ng-template>
-        <mat-divider></mat-divider>
-        <ng-template #unlogged>
-            <div id="logIcon" value="login-icon" (click)="openDialog()">
-                <mat-icon svgIcon="login-icon" aria-hidden="false" aria-label="Example of login SVG icon"
-                    >
-                </mat-icon>
-            </div>
+        <mat-selection-list [multiple] = "false">
+            <mat-divider></mat-divider>
+            <mat-list-option #logIcon value="setting-icon">
+
+                <div *ngIf="isLogged(); then logged else unlogged"></div>
+                <ng-template #logged>
+                    <div id="logIcon" value="logout-icon">
+                        <mat-icon svgIcon="logout-icon" aria-hidden="false" aria-label="Example of logged SVG icon"
+                            (click)="changeLogged()"></mat-icon>
+                    </div>
+                </ng-template>
+                <ng-template #unlogged>
+                    <div id="logIcon" value="logout-icon">
+                        <mat-icon svgIcon="login-icon" aria-hidden="false" aria-label="Example of logout SVG icon"
+                            (click)="openDialog()">
+                        </mat-icon>
+                    </div>
+                </ng-template>
+            </mat-list-option>
 
             <mat-divider></mat-divider>
-        </ng-template>
+        </mat-selection-list>
+
     </mat-sidenav>
 
     <mat-sidenav-content>
