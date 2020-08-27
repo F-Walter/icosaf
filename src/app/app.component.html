@@ -46,7 +46,7 @@
         <span id="verticalFiller"></span>
 
 
-        <mat-selection-list [multiple] = "false">
+        <mat-selection-list #logList [multiple]="false" (selectionChange)="onSelect(iconList.selectedOptions.selected[0].value)">
             <mat-divider></mat-divider>
             <mat-list-option #logIcon value="setting-icon">
 
@@ -65,7 +65,6 @@
                     </div>
                 </ng-template>
             </mat-list-option>
-
             <mat-divider></mat-divider>
         </mat-selection-list>
 

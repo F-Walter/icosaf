@@ -21,6 +21,7 @@ mat-icon {
 
 mat-toolbar {
   background-color: #2c303b;
+  z-index: 100;
 }
 .mat-divider-vertical {
   border-right-color: white;
