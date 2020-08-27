@@ -53,6 +53,9 @@ export class AppComponent implements OnInit {
     iconRegistry.addSvgIcon(
       'success-icon',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/successIcon.svg'));
+    iconRegistry.addSvgIcon(
+      'login-icon',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/loginIcon.svg'));
 
     //Cards workAreas and agvs
 
