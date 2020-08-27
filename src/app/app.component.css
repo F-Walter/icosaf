@@ -5,7 +5,8 @@ mat-sidenav {
     position: fixed;
 }
 mat-selection-list{
-    width: 100%;
+    width: 99%;
+    margin-top: 92%;
 }
 
 mat-list-option[aria-selected="true"] {
@@ -37,7 +38,7 @@ mat-list-option {
 
 #verticalFiller {
     display: flex;
-    height: 55%;
+    height: 68%;
     width: auto;
 }
 

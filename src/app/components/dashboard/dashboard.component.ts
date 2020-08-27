@@ -2,13 +2,34 @@ import { Component, OnInit } from '@angular/core';
 import { WorkArea } from 'src/app/model/work-area/work-area';
 import { Agv } from 'src/app/model/agv/agv';
 import { Router } from '@angular/router';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  animations: [
+    // Each unique animation requires its own trigger. The first argument of the trigger function is the name
+    trigger('rotatedState', [
+      state('default', style({ transform: 'rotate(0)' })),
+      state('rotated', style({ transform: 'rotate(-180deg)' })),
+      transition('rotated => default', animate('800ms ease-out')),
+      transition('default => rotated', animate('800ms ease-in'))])
+    ]
 })
 export class DashboardComponent implements OnInit {
+
+
+  state: string = 'default';
+
+  expandPanel(expPanel){
+    expPanel.toggle()
+    this.rotate()
+  }
+
+    rotate() {
+        this.state = (this.state === 'default' ? 'rotated' : 'default');
+    }
 
   workAreas: WorkArea[]
   progress: number
@@ -84,7 +105,6 @@ export class DashboardComponent implements OnInit {
 
   openMeanCycleTime() {
     event.stopPropagation();
-
   }
   openMeanSat() {
     event.stopPropagation();
