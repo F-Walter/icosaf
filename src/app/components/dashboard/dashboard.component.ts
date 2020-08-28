@@ -127,17 +127,11 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(["Home"])
   }
 
-  openCycleTime() {
+  openGraph(typeGraph:string) {
     event.stopPropagation();
+    this.router.navigate(["Home", { outlets: { dashboardContent: ["work-area", this.selectedWorkArea.id, "statistics", typeGraph] } }]);
   }
-  openSat() {
-    event.stopPropagation();
-
-  }
-  openJPH() {
-    event.stopPropagation();
-
-  }
+  
 
 }
 

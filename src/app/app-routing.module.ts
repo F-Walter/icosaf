@@ -5,6 +5,7 @@ import { UseCaseDetailsComponent } from './components/UCDetails/use-case-details
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginDialogComponent } from './components/login/login-dialog/login-dialog.component';
 import { AgvDetailsComponent } from './components/agv-details/agv-details.component';
+import { StatsComponent } from './components/stats/stats.component';
 
 
 
@@ -33,6 +34,11 @@ const routes: Routes = [
         path: 'work-area/:workAreaId/agv-details/:agvId',
         component: AgvDetailsComponent,
         outlet: "dashboardContent"
+      },
+      {
+        path: 'work-area/:workAreaId/statistics/:graphType',
+        component: StatsComponent,
+        outlet: "dashboardContent",
       }
     ]
   },

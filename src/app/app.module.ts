@@ -34,6 +34,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AgvDetailsComponent } from './components/agv-details/agv-details.component';
 import { ProblemImageComponent } from './components/agv-details/error-image-modal/problem-image.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { StatsComponent } from './components/stats/stats.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
     LoginDialogComponent,
     AgvDetailsComponent,
     ProblemImageComponent,
+    StatsComponent,
   ],
   imports: [
     BrowserModule,
