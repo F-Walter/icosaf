@@ -39,7 +39,11 @@ export class GridListUCComponent {
 
 
   onClickButton(useCase: string) {
-    this.router.navigate(['use-case-details'], { queryParams: { UC: useCase } })
+
+    if (useCase == 'C')
+      this.router.navigate(['Home'])
+    else
+      this.router.navigate(['use-case-details'], { queryParams: { UC: useCase } })
   }
 
 
