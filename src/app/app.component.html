@@ -5,8 +5,7 @@
 
     <mat-sidenav mode="side" opened="true">
 
-        <mat-selection-list #iconList [multiple]="false"
-            (selectionChange)="onSelect(iconList.selectedOptions.selected[0].value)">
+        <mat-selection-list #iconList id="iconList" [multiple]="false" (selectionChange)="onSelect(iconList)">
 
             <mat-list-option #dashboardIcon value="dashboard-icon" (click)="navigateTo('Home')">
                 <div *ngIf="dashboardIcon.selected === true; then dashboardSelectedBlock else dashboardBlock"></div>
@@ -46,21 +45,20 @@
         <span id="verticalFiller"></span>
 
 
-        <mat-selection-list #logList [multiple]="false" (selectionChange)="onSelect(iconList.selectedOptions.selected[0].value)">
+        <mat-selection-list #logList id="logList" [multiple]="false" (selectionChange)="onSelect(logList)">
             <mat-divider></mat-divider>
-            <mat-list-option #logIcon value="setting-icon">
+            <mat-list-option #logIcon value="login-icon">
 
-                <div *ngIf="isLogged(); then logged else unlogged"></div>
+                <div *ngIf="isLoggedIconSelected(); then logged else unlogged"></div>
                 <ng-template #logged>
-                    <div id="logIcon" value="logout-icon">
-                        <mat-icon svgIcon="logout-icon" aria-hidden="false" aria-label="Example of logged SVG icon"
-                            (click)="changeLogged()"></mat-icon>
+                    <div id="logIcon" value="login-icon-selected">
+                        <mat-icon svgIcon="login-icon-selected" aria-hidden="false"
+                            aria-label="Example of logged SVG icon"></mat-icon>
                     </div>
                 </ng-template>
                 <ng-template #unlogged>
-                    <div id="logIcon" value="logout-icon">
-                        <mat-icon svgIcon="login-icon" aria-hidden="false" aria-label="Example of logout SVG icon"
-                            (click)="openDialog()">
+                    <div id="logIcon" value="login-icon">
+                        <mat-icon svgIcon="login-icon" aria-hidden="false" aria-label="Example of logged SVG icon">
                         </mat-icon>
                     </div>
                 </ng-template>

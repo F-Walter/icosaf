@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SseServiceService } from './services/SseService/sse-service.service';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from './components/login/login-dialog/login-dialog.component';
 import { WorkArea } from './model/work-area/work-area';
 import { Agv } from './model/agv/agv';
+import { MatSelectionList } from '@angular/material/list';
 
 @Component({
   selector: 'app-root',
@@ -14,17 +15,20 @@ import { Agv } from './model/agv/agv';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  logged: boolean
+  logIconSelected: boolean
 
 
   workAreas: WorkArea[]
 
 
+  @ViewChild('iconList') iconList: MatSelectionList;
+  @ViewChild('logList') logList: MatSelectionList;
+
   constructor(private sseService: SseServiceService,
     iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
     private activatedRoute: ActivatedRoute, private router: Router,
     public dialog: MatDialog,) {
-    this.logged = false
+    this.logIconSelected = false
 
     iconRegistry.addSvgIcon(
       'dashboard-icon-selected',
@@ -56,6 +60,10 @@ export class AppComponent implements OnInit {
     iconRegistry.addSvgIcon(
       'login-icon',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/loginIcon.svg'));
+    iconRegistry.addSvgIcon(
+      'login-icon-selected',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/loginIconSelected.svg'));
+
 
     //Cards workAreas and agvs
 
@@ -111,19 +119,32 @@ export class AppComponent implements OnInit {
     });
   }
 
-  changeLogged() {
-    this.openDialog()
-    this.logged = !this.logged
+  onLogIconSelect() {
+
   }
 
-  isLogged(): boolean {
-    return this.logged
+  isLoggedIconSelected(): boolean {
+    return this.logIconSelected
   }
 
-  onSelect(iconSelected) {
-    console.log(iconSelected)
-    return iconSelected
+  onSelect(list) {
+    if (list == this.iconList) {
+      //deseleziono l'altra lista
+      this.logList.deselectAll()
+      this.logIconSelected = false
+    }
+    else {
+      // seleziono logList
+      if (!this.logIconSelected) {
+        this.openDialog()
+        this.logIconSelected = true
+      }
+      this.iconList.deselectAll()
+    }
+    return list.selectedOptions.selected[0].value
   }
+
+
 
 
   navigateTo(url: string) {
