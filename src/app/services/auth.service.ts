@@ -22,7 +22,7 @@ export class AuthService {
 
     console.log(encrypted.toString());
 
-    const URL: string = "http://icowms.cloud.reply.eu/Details/verifyPwd";
+    const URL: string = "http://localhost:4200/pwd/Details/verifyPwd";
 
     return this.http.post<any>(URL, { login: username, pwd: encrypted.toString() });
   }

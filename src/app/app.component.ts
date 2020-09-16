@@ -108,7 +108,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     console.log("Contacting events...")
     this.sseService
-      .getServerSentEvent("http://icosaf.cloud.reply.eu:4200/api")
+      .getServerSentEvent("http://localhost:4200/API/events")
       .subscribe(data => console.log(data));
     console.log(this.activatedRoute.url)
   }

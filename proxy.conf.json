@@ -1,11 +1,20 @@
 {
-    "/api": {
-      "target": "http://icosaf.replycloud.prv:8081/events",
+    "/API/*": {
+      "target": "http://icosaf.replycloud.prv:8081",
       "secure": false,
       "pathRewrite": {
-        "^/api": ""
+        "^/API": ""
       },
       "changeOrigin": true
-    }
+    },
+
+    "/pwd/*": {
+      "target": "http://icowms.cloud.reply.eu",
+      "secure": false,
+      "pathRewrite": {
+        "^/pwd": ""
+      },
+      "changeOrigin": true
+  }
 
   }
