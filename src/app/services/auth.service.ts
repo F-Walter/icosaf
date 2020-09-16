@@ -10,27 +10,21 @@ import * as CryptoJS from 'crypto-js';
 export class AuthService {
 
   constructor(private http: HttpClient) {
- 
+
   }
 
 
 
-  login(usernameA: string, passwordA: string): Observable<Boolean> {
-
-    const password = 'icosaf123';
-    const username = "mrossi"
-
-    var pwd = 'icosaf123';
+  login(username: string, password: string): Observable<any> {
     
-    var encrypted = CryptoJS.AES.encrypt(pwd, "my-secret");
-    
+
+    var encrypted = CryptoJS.AES.encrypt(password, "my-secret");
+
     console.log(encrypted.toString());
 
-    const URL: string = "";
+    const URL: string = "http://icowms.cloud.reply.eu/Details/verifyPwd";
 
-    // return this.http.post<Boolean>(URL, { login: username, pwd: password });
-    return new Observable()
-
+    return this.http.post<any>(URL, { login: username, pwd: encrypted.toString() });
   }
 
 

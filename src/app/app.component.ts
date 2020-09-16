@@ -120,7 +120,6 @@ export class AppComponent implements OnInit {
   }
 
   onLogIconSelect() {
-
   }
 
   isLoggedIconSelected(): boolean {

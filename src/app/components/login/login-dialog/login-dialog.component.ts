@@ -14,7 +14,7 @@ export class LoginDialogComponent implements OnInit {
   loginForm: FormGroup
   public dialogRef: MatDialogRef<LoginDialogComponent>
   hide = true;
-  
+
   constructor(private authService: AuthService) {
     this.loginForm = new FormGroup({
       email: new FormControl(''),
@@ -45,17 +45,19 @@ export class LoginDialogComponent implements OnInit {
   save() {
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(response => {
 
+console.log(response);
 
-      if (response) {
-        var sess = {};
-        sess["email"] = this.loginForm.value.email;
-        localStorage.setItem("session", JSON.stringify(sess));
-      }
+      // if (response) {
+      //   var sess = {};
+      //   sess["email"] = this.loginForm.value.email;
+      //   localStorage.setItem("session", JSON.stringify(sess));
+      // }
+      // this.dialogRef.close();
+
     }, error => {
       this.error = error.error;
     })
 
-    this.dialogRef.close();
 
   }
 
