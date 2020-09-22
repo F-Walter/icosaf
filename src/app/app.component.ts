@@ -122,13 +122,14 @@ export class AppComponent implements OnInit {
 
         console.log(response)
         let data = JSON.parse(response.data)
+        console.log(data)
         if (data.status === "NOK") {
           const dialogRef = this.dialog.open(NotificationComponent, {
             width: 'auto',
             height: 'auto',
             data: {
               workAreaId: 'data.workareaId',
-              taskId: data.taskId,
+              taskId: data.task_id,
               agvId: 'data.agvId'
             }
           })
