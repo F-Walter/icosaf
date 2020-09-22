@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProblemModalComponent } from '../UCDetails/modal/problem-modal.component';
@@ -7,6 +7,7 @@ import { ProblemImageComponent, Slide } from './error-image-modal/problem-image.
 import { SseServiceService } from 'src/app/services/SseService/sse-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
 
 
 const options = { hour: "numeric", minute: "numeric" }
@@ -41,7 +42,7 @@ interface PrelieviInterface {
     ]),
   ]
 })
-export class AgvDetailsComponent implements OnInit, AfterViewInit {
+export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   dataSourceProblems: MatTableDataSource<Item>
   columnsToDisplay = ['state', 'id', 'kit', 'problemsFound', 'button', 'hour'];
@@ -56,6 +57,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit {
 
 
   private _paginatorPrelievi: MatPaginator;
+  paramsSub: Subscription;
   public get paginatorPrelievi(): MatPaginator {
     return this._paginatorPrelievi;
   }
@@ -63,6 +65,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit {
   public set paginatorPrelievi(value: MatPaginator) {
     this._paginatorPrelievi = value;
     this.dataSourcePrelievi.paginator = this.paginatorPrelievi
+
   }
   private _paginatorErrors: MatPaginator;
   public get paginatorErrors(): MatPaginator {
@@ -97,7 +100,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.activatedRoute.params.subscribe(params => {
+    this.paramsSub = this.activatedRoute.params.subscribe(params => {
 
       // UC-C
       if (params['workAreaId'] === "0" && params['agvId'] === "0") {
@@ -114,6 +117,8 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit {
                 kit: "45",
                 hour: new Date().toLocaleTimeString('it', options)
               }]
+
+              this.dataSourcePrelievi.paginator = this.paginatorPrelievi
             } else {
               if (response.status === "NOK") {
                 this.dataSourceProblems.data = [...this.dataSourceProblems.data,
@@ -125,13 +130,18 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit {
                   problemsFound: 'Tipologia Problema',
                   button: '',
                   description: `Problem description`,
-                }
-                ]
+                }]
+
+                this.dataSourceProblems.paginator = this.paginatorErrors
               }
             }
           })
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.paramsSub.unsubscribe()
   }
 
 

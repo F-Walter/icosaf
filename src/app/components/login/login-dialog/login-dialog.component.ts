@@ -45,7 +45,7 @@ export class LoginDialogComponent implements OnInit {
   save() {
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(response => {
 
-console.log(response);
+      console.log(response);
 
       // if (response) {
       //   var sess = {};

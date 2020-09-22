@@ -8,6 +8,7 @@ import { LoginDialogComponent } from './components/login/login-dialog/login-dial
 import { WorkArea } from './model/work-area/work-area';
 import { Agv } from './model/agv/agv';
 import { MatSelectionList } from '@angular/material/list';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @Component({
   selector: 'app-root',
@@ -117,7 +118,14 @@ export class AppComponent implements OnInit {
     console.log("Contacting events...")
     this.sseService
       .getServerSentEvent("http://localhost:4200/API/events")
-      .subscribe(data => console.log(data));
+      .subscribe(response => {
+
+        console.log(response)
+        let data = JSON.parse(response.data)
+        if (data.status === "NOK") {
+          const dialogRef = this.dialog.open(NotificationComponent, { width: 'auto', height: 'auto' })
+        }
+      });
     console.log(this.activatedRoute.url)
   }
 

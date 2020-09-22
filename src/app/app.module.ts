@@ -37,7 +37,8 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { StatsComponent } from './components/stats/stats.component';
 
 
-import {MatPaginatorModule} from '@angular/material/paginator'; 
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { NotificationComponent } from './components/notification/notification.component'; 
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     AgvDetailsComponent,
     ProblemImageComponent,
     StatsComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
