@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-notification',
@@ -10,7 +10,14 @@ export class NotificationComponent implements OnInit {
 
   public dialogRef: MatDialogRef<NotificationComponent>
 
-  constructor() { }
+  taskId: string
+  workAreaId: string
+  agvId: string
+  constructor(@Inject(MAT_DIALOG_DATA) public data) {
+    if (data.taskId) this.taskId = data.taskId
+    if (data.workAreaId) this.workAreaId = data.workAreaId
+    if (data.agvId) this.agvId = data.agvId
+  }
 
   ngOnInit(): void {
   }
