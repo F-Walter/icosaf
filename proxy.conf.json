@@ -1,6 +1,6 @@
 {
     "/API/*": {
-      "target": "http://icosaf.replycloud.prv:8081",
+      "target": "http://10.41.11.152:8081",
       "secure": false,
       "pathRewrite": {
         "^/API": ""

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SseServiceService } from './services/SseService/sse-service.service';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -24,9 +24,15 @@ export class AppComponent implements OnInit {
   @ViewChild('iconList') iconList: MatSelectionList;
   @ViewChild('logList') logList: MatSelectionList;
 
-  constructor(private sseService: SseServiceService,
-    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
-    private activatedRoute: ActivatedRoute, private router: Router,
+
+
+
+  constructor(
+    private sseService: SseServiceService,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     public dialog: MatDialog,) {
     this.logIconSelected = false
 
@@ -103,6 +109,8 @@ export class AppComponent implements OnInit {
 
     this.workAreas.push(w1, w2, w3, w4, w5, w6)
 
+  }
+  ngAfterViewInit(): void {
   }
 
   ngOnInit() {

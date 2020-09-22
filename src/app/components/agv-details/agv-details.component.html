@@ -6,7 +6,7 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <!-----------TABLE -->
-        <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+        <table mat-table [dataSource]="dataSourceProblems" multiTemplateDataRows>
             <!-- State Column -->
             <ng-container matColumnDef="state">
                 <th mat-header-cell *matHeaderCellDef class="normalColumn"> STATO </th>
@@ -70,7 +70,8 @@
                         <div class="rightContent">
                             <p>IMMAGINI</p>
                             <mat-list id="listImages">
-                                <mat-list-item *ngFor="let problemSrc of problems"><img [src]="problemSrc.image" (click)="openImage(problemSrc)" /> </mat-list-item>
+                                <mat-list-item *ngFor="let problemSrc of problems"><img [src]="problemSrc.image"
+                                        (click)="openImage(problemSrc)" /> </mat-list-item>
                             </mat-list>
                             <p><u>Richiedi altre immagini</u></p>
 
@@ -87,6 +88,7 @@
             </tr>
             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
         </table>
+        <mat-paginator #paginatorErrors [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
     </mat-expansion-panel>
 </mat-accordion>
@@ -148,9 +150,8 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumnsPrelievi"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumnsPrelievi;"></tr>
         </table>
-
+        <mat-paginator #paginatorPrelievi [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
 
     </mat-expansion-panel>
 </mat-accordion>
-

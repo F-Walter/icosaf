@@ -37,6 +37,8 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { StatsComponent } from './components/stats/stats.component';
 
 
+import {MatPaginatorModule} from '@angular/material/paginator'; 
+
 @NgModule({
   declarations: [
     GridListUCComponent,
@@ -72,6 +74,7 @@ import { StatsComponent } from './components/stats/stats.component';
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
+    MatPaginatorModule,
     MatCarouselModule.forRoot(),
 
   ],
