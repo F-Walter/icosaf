@@ -9,6 +9,6 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.imageModal .mat-dialog-container  {
+.zeroPaddingModal .mat-dialog-container  {
     padding: 0!important;
 }

@@ -1,11 +1,22 @@
-<div id="modal">
-    <h1 mat-dialog-title>NUOVA NOTIFICA</h1>
-    <p> AREA LAVORO {{workAreaId}} </p>
-    <p> AGV {{agvId}} </p>
-    <p> COMPONENTE PN{{taskId}} </p>
-    <p>E' stato rilevato l'errore x durante il prelievo del componente PN{{taskId}}</p>
-    <div class="actions">
-        <button style="margin-right: 20px;" mat-button>POSPONI</button>
-        <button mat-button>RISOLVI ORA</button>
+<mat-card id="modal">
+    <h1 class="orangeText" mat-dialog-title>NUOVA NOTIFICA</h1>
+
+    <div>
+        <p class="greyText"> AREA LAVORO {{workAreaId}} </p>
+        <p class="greyText"> AGV {{agvId}} </p>
+        <p class="greyText"> COMPONENTE PN{{taskId}} </p>
     </div>
-</div>
+    <div>
+        <p class="errorText">E' stato rilevato l'errore<span id="tipologiaErrore" class="orangeText"> Tipologia Errore
+            </span>durante
+            il
+            prelievo del
+            componente PN{{taskId}}</p>
+    </div>
+
+    <div class="actions">
+        <button (click)="this.dialogRef.close()" class="whiteButton" style="margin-right: 20px;"
+            mat-button>POSPONI</button>
+        <button (click)="risolviOra()" class="darkBlueColor" mat-button>RISOLVI ORA</button>
+    </div>
+</mat-card>
