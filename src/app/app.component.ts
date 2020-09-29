@@ -128,10 +128,11 @@ export class AppComponent implements OnInit {
             width: 'auto',
             height: 'auto',
             data: {
-              workAreaId: 'data.workareaId',
+              workAreaId: 'data.workarea_id',
               taskId: data.task_id,
-              agvId: 'data.agvId'
-            }
+              agvId: 'data.agv_id'
+            },
+            panelClass: "zeroPaddingModal"
           })
         }
       });
@@ -175,4 +176,6 @@ export class AppComponent implements OnInit {
     this.router.navigate([url])
 
   }
+
+  
 }

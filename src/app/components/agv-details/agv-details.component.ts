@@ -175,7 +175,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = "50%"
     dialogConfig.minHeight = "50%"
-    dialogConfig.panelClass = "imageModal"
+    dialogConfig.panelClass = "zeroPaddingModal"
 
 
     let imageArray = []
