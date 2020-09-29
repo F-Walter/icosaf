@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginDialogComponent } from './components/login/login-dialog/login-dialog.component';
 import { AgvDetailsComponent } from './components/agv-details/agv-details.component';
 import { StatsComponent } from './components/stats/stats.component';
+import { UseCaseAComponent } from './components/UC-A/use-case-a.component';
 
 
 
@@ -19,9 +20,12 @@ const routes: Routes = [
   {
     path: 'chooseUseCase',
     // canActivate: [AuthGuard],
-    component: GridListUCComponent,
+    component: GridListUCComponent,  
   },
-
+  {
+    path:'UseCaseA',
+    component: UseCaseAComponent
+  },
   {
     path: 'use-case-details',
     component: UseCaseDetailsComponent,
