@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UCCServiceService } from 'src/app/services/uc-c-service.service';
+import { UCCService } from 'src/app/services/UC-C/uc-c-service.service';
 
 @Component({
   selector: 'app-notification',
@@ -14,7 +14,7 @@ export class NotificationComponent implements OnInit {
   taskId: string
   workAreaId: string
   agvId: string
-  constructor(@Inject(MAT_DIALOG_DATA) public data, private UCCService: UCCServiceService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data, private UCCService: UCCService) {
     if (data.taskId) this.taskId = data.taskId
     if (data.workAreaId) this.workAreaId = data.workAreaId
     if (data.agvId) this.agvId = data.agvId

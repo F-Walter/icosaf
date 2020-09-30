@@ -38,7 +38,8 @@ import { StatsComponent } from './components/stats/stats.component';
 
 
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { NotificationComponent } from './components/notification/notification.component'; 
+import { NotificationComponent } from './components/notification/notification.component';
+import { UseCaseAComponent } from './components/UC-A/use-case-a.component'; 
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { NotificationComponent } from './components/notification/notification.co
     ProblemImageComponent,
     StatsComponent,
     NotificationComponent,
+    UseCaseAComponent,
   ],
   imports: [
     BrowserModule,
