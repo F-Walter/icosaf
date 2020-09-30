@@ -47,7 +47,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   dataSourceProblems: MatTableDataSource<Item>
   columnsToDisplay = ['state', 'id', 'kit', 'problemsFound', 'button', 'hour'];
   expandedElement: Item | null;
-
+  isTabClose: boolean
 
 
 
@@ -84,6 +84,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     private sseService: SseServiceService,
     private activatedRoute: ActivatedRoute) {
 
+    this.isTabClose = true
     this.problems = []
     this.problems.push({ image: "../../../assets/img/errorIcon.svg" },
       { image: "../../../assets/img/dangerIcon.svg" },
@@ -136,6 +137,16 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
               }
             }
           })
+
+      this.dataSourceProblems.data = [{
+        state: 2,
+                  id: 'PN 45335478',
+                  kit: 'Nome kit',
+                  hour: new Date().toLocaleTimeString('it', options),
+                  problemsFound: 'Tipologia Problema',
+                  button: '',
+                  description: `Problem description`,
+      }]
       }
     })
   }
@@ -161,10 +172,15 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  proceed(){
+    console.log("PROCEED")
+  }
 
   solve(element: Item) {
     event.stopPropagation();
-    this.dialog.open(ProblemModalComponent);
+    //this.dialog.open(ProblemModalComponent);
+    this.isTabClose = false
+    this.expandedElement = element
   }
 
   openImage(imageSrc: Slide) {
