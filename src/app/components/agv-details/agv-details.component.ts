@@ -8,6 +8,7 @@ import { SseServiceService } from 'src/app/services/SseService/sse-service.servi
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
+import { UCCService } from 'src/app/services/UC-C/uc-c-service.service';
 
 
 const options = { hour: "numeric", minute: "numeric" }
@@ -48,7 +49,9 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   columnsToDisplay = ['state', 'id', 'kit', 'problemsFound', 'button', 'hour'];
   expandedElement: Item | null;
   isTabClose: boolean
+  AGVActionSelected:string
 
+  options =['Ritentare','Rimanere fermo','Continuo attività']
 
 
   displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'hours'];
@@ -82,6 +85,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     public dialog: MatDialog,
     public imageDialog: MatDialog,
     private sseService: SseServiceService,
+    private UCCService: UCCService,
     private activatedRoute: ActivatedRoute) {
 
     this.isTabClose = true
@@ -138,15 +142,15 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           })
 
-      this.dataSourceProblems.data = [{
-        state: 2,
-                  id: 'PN 45335478',
-                  kit: 'Nome kit',
-                  hour: new Date().toLocaleTimeString('it', options),
-                  problemsFound: 'Tipologia Problema',
-                  button: '',
-                  description: `Problem description`,
-      }]
+        this.dataSourceProblems.data = [{
+          state: 2,
+          id: 'PN 45335478',
+          kit: 'Nome kit',
+          hour: new Date().toLocaleTimeString('it', options),
+          problemsFound: 'Tipologia Problema',
+          button: '',
+          description: `Problem description`,
+        }]
       }
     })
   }
@@ -172,8 +176,16 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  proceed(){
-    console.log("PROCEED")
+  proceed() {
+    console.log(this.AGVActionSelected);
+
+    this.UCCService.getLastActionError(15).subscribe(success => {
+      console.log(success[0].error_id);
+
+      this.UCCService.setSolveAction("pippo", 1, 1, 1, success[0].error_id).subscribe(response => {
+        console.log("Risolvi ora", response)
+      })
+    })
   }
 
   solve(element: Item) {

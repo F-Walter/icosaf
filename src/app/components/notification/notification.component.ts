@@ -25,8 +25,12 @@ export class NotificationComponent implements OnInit {
 
   risolviOra() {
     // TODO vedere come estrarre i parametri da passare
-    this.UCCService.setSolveAction("pippo", 1, 1, 1, 13).subscribe(success => {
-      console.log("Risolvi ora", success)
+    this.UCCService.getLastActionError(15).subscribe(success => {
+      console.log(success[0].error_id);
+      
+      this.UCCService.setSolveAction("pippo", 1, 1, 1, success[0].error_id).subscribe(response => {
+        console.log("Risolvi ora", response)
+      })
     })
   }
 

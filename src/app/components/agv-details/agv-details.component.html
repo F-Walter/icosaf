@@ -70,7 +70,8 @@
                         <div *ngIf="!isTabClose else problemDetails" class="handleProblemForm">
                             <div class="inlineDiv">
                                 <h1 mat-dialog-title>Gestione Problema</h1>
-                                <mat-icon aria-hidden="false" aria-label="Close Icon" (click)="isTabClose = true">close
+                                <mat-icon aria-hidden="false" aria-label="Close Icon" (click)="expandedElement=null">
+                                    close
                                 </mat-icon>
                             </div>
                             <p> Selezionare le comunicazioni da inviare</p>
@@ -79,15 +80,16 @@
                                     <div id="divCheckboxes">
                                         <div class="checkboxList">
                                             <p>COMUNICAZIONI PER AGV</p>
-                                            <mat-radio-group #AGVSelection aria-label="Select an option">
-                                                <mat-radio-button value="1">Ritentare</mat-radio-button>
-                                                <mat-radio-button value="2">Rimanere fermo</mat-radio-button>
-                                                <mat-radio-button value="3">Continuo attività</mat-radio-button>
+                                            <mat-radio-group color="primary" [(ngModel)]="AGVActionSelected"
+                                                class="example-radio-group" aria-label="Select an option">
+                                                <mat-radio-button *ngFor="let option of options" [value]="option">
+                                                    {{option}}</mat-radio-button>
                                             </mat-radio-group>
                                         </div>
                                         <div class="checkboxList">
                                             <p>COMUNICAZIONI PER OPERATORE</p>
-                                            <mat-radio-group #OperatorSelection aria-label="Select an option">
+                                            <mat-radio-group color="primary" #OperatorSelection
+                                                aria-label="Select an option">
                                                 <mat-radio-button value="1">Richiesta intervento</mat-radio-button>
                                                 <mat-radio-button value="2">Richiesta interveno urgente
                                                 </mat-radio-button>
@@ -118,7 +120,7 @@
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
             <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
                 [class.example-expanded-row]="expandedElement === element"
-                (click)="expandedElement = expandedElement === element ? null : element">
+                (click)="expandedElement = expandedElement === element ? null : element; isTabClose = true;">
             </tr>
             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
         </table>

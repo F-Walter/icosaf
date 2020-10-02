@@ -13,5 +13,12 @@ export class UCCService {
     return this.http.get<any>(url).pipe(retry(3))
   }
 
+
+  getLastActionError(task_id: number) {
+    let url = `http://icowms.cloud.reply.eu/Details/getLastActError?task_id=${task_id}`
+    return this.http.get<any>(url).pipe(retry(3))
+
+  }
+
   constructor(private http: HttpClient) { }
 }
