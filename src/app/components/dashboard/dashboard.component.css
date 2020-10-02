@@ -3,6 +3,7 @@
 .example-card {
     /* width: auto !important; */
     margin-bottom: 5%;
+    min-width: 460px;
 }
 
 .cardsContainer {
@@ -111,12 +112,21 @@ mat-list-item {
 }
 
 .detailsContainer {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
     position: fixed;
-    left: 25%;
+    left: 35%;
     min-width: 45%;
     padding-top: 16px;
     margin-left: 5%;
     margin-right: 1%;
+}
+
+@media only screen and (max-width: 1200px) {
+    .detailsContainer {
+        visibility: hidden;
+    }
 }
 
 .mat-expansion-panel-header[aria-disabled="true"] {

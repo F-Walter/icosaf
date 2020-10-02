@@ -143,6 +143,11 @@ export class AppComponent implements OnInit {
     const dialogRef = this.dialog.open(LoginDialogComponent, {
       width: '25%'
     });
+
+    dialogRef.afterClosed().subscribe(_ => {
+      this.logList.deselectAll()
+      this.logIconSelected = false
+    });
   }
 
   onLogIconSelect() {
@@ -177,5 +182,5 @@ export class AppComponent implements OnInit {
 
   }
 
-  
+
 }

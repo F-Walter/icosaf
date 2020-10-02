@@ -109,6 +109,8 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
 
+    //TODO chiamata per ottenere tutti i problemi e i task risolti fino a quel momento
+
     this.paramsSub = this.activatedRoute.params.subscribe(params => {
 
       // UC-C
