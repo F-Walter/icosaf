@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProblemModalComponent } from '../UCDetails/modal/problem-modal.component';
@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { UCCService } from 'src/app/services/UC-C/uc-c-service.service';
+import { MatRadioGroup } from '@angular/material/radio';
 
 
 const options = { hour: "numeric", minute: "numeric" }
@@ -49,15 +50,18 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   columnsToDisplay = ['state', 'id', 'kit', 'problemsFound', 'button', 'hour'];
   expandedElement: Item | null;
   isTabClose: boolean
-  AGVActionSelected:string
+  AGVActionSelected: string
 
-  options =['Ritentare','Rimanere fermo','Continuo attività']
-
+  agvOptions = ['Ritentare', 'Rimanere fermo', 'Continuo attività']
 
   displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'hours'];
   dataSourcePrelievi: MatTableDataSource<PrelieviInterface>
   problems: Slide[];
 
+
+  AGVAactionSelection(actionSelected: string) {
+    this.AGVActionSelected = actionSelected
+  }
 
   private _paginatorPrelievi: MatPaginator;
   paramsSub: Subscription;
@@ -183,7 +187,9 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log(success[0].error_id);
 
       this.UCCService.setSolveAction("pippo", 1, 1, 1, success[0].error_id).subscribe(response => {
-        console.log("Risolvi ora", response)
+        this.UCCService.setTaskStatusOk(15).subscribe(_ => {
+          console.log("Risolvi ora", response)
+        })
       })
     })
   }
