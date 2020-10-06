@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { UCCService } from 'src/app/services/UC-C/uc-c-service.service';
-import { MatRadioGroup } from '@angular/material/radio';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 
 
 const options = { hour: "numeric", minute: "numeric" }
@@ -46,21 +46,51 @@ interface PrelieviInterface {
 })
 export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  @ViewChild("OperatorSelection") opSelection: MatRadioGroup
+  @ViewChild("AGVActionSelected") AGVsel: MatRadioGroup
   dataSourceProblems: MatTableDataSource<Item>
   columnsToDisplay = ['state', 'id', 'kit', 'problemsFound', 'button', 'hour'];
   expandedElement: Item | null;
   isTabClose: boolean
   AGVActionSelected: string
+  OpActionSelected: string
+  opChecked: boolean = false
 
   agvOptions = ['Ritentare', 'Rimanere fermo', 'Continuo attività']
+  opOptions = [{text:'Richiesta intervento', val:false, dis:false}, {text:'Richiesta interveno urgente', val:false, dis:false}]
 
   displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'hours'];
   dataSourcePrelievi: MatTableDataSource<PrelieviInterface>
   problems: Slide[];
 
 
-  AGVAactionSelection(actionSelected: string) {
+  AGVActionSelection(actionSelected: string) {
     this.AGVActionSelected = actionSelected
+
+    if(actionSelected === this.agvOptions[1]){
+      console.log("selezionato rimanere fermo")
+      if(!this.opOptions.find(o => o.val==true))
+        this.opOptions[0].val=true
+      for(let op of this.opOptions){
+        op.dis = false
+      }
+      console.log("Changed now")
+    }
+    else{
+      console.log("selezionato altro")
+      for(let op of this.opOptions){
+        op.val = false
+        op.dis = true
+      }
+    }
+  }
+  OpActionSelection(opSel) {
+    if(!opSel.dis){
+      for(let op of this.opOptions)
+        if(opSel != op) op.val = false
+      //this.opOptions.find(o=>o!=opSel).val = false
+      this.opOptions.find(o=> o==opSel).val = true
+    }
   }
 
   private _paginatorPrelievi: MatPaginator;

@@ -81,19 +81,15 @@
                                         <div class="checkboxList">
                                             <p>COMUNICAZIONI PER AGV</p>
                                             <mat-radio-group color="primary"  
-                                                aria-label="Select an option">
-                                                <mat-radio-button value="1" (click)="AGVAactionSelection('Ritentare')">Ritentare</mat-radio-button>
-                                                <mat-radio-button value="2" (click)="AGVAactionSelection('Rimanere fermo')">Rimanere fermo</mat-radio-button>
-                                                <mat-radio-button value="3" (click)="AGVAactionSelection('Continuo attività')">Continuo attività</mat-radio-button>
+                                                aria-label="Select an option" #AGVActionSelected>
+                                                <mat-radio-button *ngFor="let agvOption of agvOptions; let i = index" value="{{i}}" (click)="AGVActionSelection(agvOption)">{{agvOption}}</mat-radio-button>
                                             </mat-radio-group>
                                         </div>
                                         <div class="checkboxList">
                                             <p>COMUNICAZIONI PER OPERATORE</p>
                                             <mat-radio-group color="primary" #OperatorSelection
                                                 aria-label="Select an option">
-                                                <mat-radio-button value="1">Richiesta intervento</mat-radio-button>
-                                                <mat-radio-button value="2">Richiesta interveno urgente
-                                                </mat-radio-button>
+                                                <mat-radio-button *ngFor="let opOption of opOptions; let op_index=index" [disabled]="opOption.dis" value="{{op_index}}" [checked]="opOption.val" (click)="OpActionSelection(opOption)">{{opOption.text}}</mat-radio-button>
                                                 <u>Aggiungere un testo</u>
                                             </mat-radio-group>
                                         </div>
