@@ -4,12 +4,13 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProblemModalComponent } from '../UCDetails/modal/problem-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProblemImageComponent, Slide } from './error-image-modal/problem-image.component';
-import { SseServiceService } from 'src/app/services/SseService/sse-service.service';
+import { SseService } from 'src/app/services/SseService/sse-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { UCCService } from 'src/app/services/UC-C/uc-c-service.service';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { Order } from 'src/app/model/order.model';
 
 
 const options = { hour: "numeric", minute: "numeric" }
@@ -118,7 +119,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     public imageDialog: MatDialog,
-    private sseService: SseServiceService,
+    private sseService: SseService,
     private UCCService: UCCService,
     private activatedRoute: ActivatedRoute) {
 
@@ -145,6 +146,14 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
       // UC-C
       if (params['workAreaId'] === "0" && params['agvId'] === "0") {
+
+     
+        this.UCCService.getTaskListAgv(this.UCCService.currentOrder.order_id,params['agvId']).subscribe(tasks=>{
+
+          //TODO: definire come dare settare le due data source problemi e prelievi
+
+        })
+
         this.sseService
           .getServerSentEvent("http://localhost:4200/API/events")
           .subscribe(data => {
@@ -162,31 +171,32 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
               this.dataSourcePrelievi.paginator = this.paginatorPrelievi
             } else {
               if (response.status === "NOK") {
-                this.dataSourceProblems.data = [...this.dataSourceProblems.data,
-                {
-                  state: 2,
-                  id: 'PN 45335478',
-                  kit: 'Nome kit',
-                  hour: new Date().toLocaleTimeString('it', options),
-                  problemsFound: 'Tipologia Problema',
-                  button: '',
-                  description: `Problem description`,
-                }]
+                this.dataSourceProblems.data = [
+                  {
+                    state: 2,
+                    id: 'PN 45335478',
+                    kit: 'Nome kit',
+                    hour: new Date().toLocaleTimeString('it', options),
+                    problemsFound: 'Tipologia Problema',
+                    button: '',
+                    description: `Problem description`,
+                  }
+                ]
 
                 this.dataSourceProblems.paginator = this.paginatorErrors
               }
             }
           })
 
-        this.dataSourceProblems.data = [{
-          state: 2,
-          id: 'PN 45335478',
-          kit: 'Nome kit',
-          hour: new Date().toLocaleTimeString('it', options),
-          problemsFound: 'Tipologia Problema',
-          button: '',
-          description: `Problem description`,
-        }]
+        // this.dataSourceProblems.data = [{
+        //   state: 2,
+        //   id: 'PN 45335478',
+        //   kit: 'Nome kit',
+        //   hour: new Date().toLocaleTimeString('it', options),
+        //   problemsFound: 'Tipologia Problema',
+        //   button: '',
+        //   description: `Problem description`,
+        // }]
       }
     })
   }

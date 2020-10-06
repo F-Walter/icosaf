@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class SseServiceService {
+export class SseService {
 
 
   //NgZone to alert Angular when an event occurs because it happens outside of the framework.

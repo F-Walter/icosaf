@@ -1,12 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { SseServiceService } from './services/SseService/sse-service.service';
+import { SseService } from './services/SseService/sse-service.service';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from './components/login/login-dialog/login-dialog.component';
-import { WorkArea } from './model/work-area/work-area';
-import { Agv } from './model/agv/agv';
 import { MatSelectionList } from '@angular/material/list';
 import { NotificationComponent } from './components/notification/notification.component';
 
@@ -19,9 +17,6 @@ export class AppComponent implements OnInit {
   logIconSelected: boolean
 
 
-  workAreas: WorkArea[]
-
-
   @ViewChild('iconList') iconList: MatSelectionList;
   @ViewChild('logList') logList: MatSelectionList;
 
@@ -29,7 +24,7 @@ export class AppComponent implements OnInit {
 
 
   constructor(
-    private sseService: SseServiceService,
+    private sseService: SseService,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private activatedRoute: ActivatedRoute,
@@ -75,6 +70,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+    
     console.log("Contacting events...")
     this.sseService
       .getServerSentEvent("http://localhost:4200/API/events")

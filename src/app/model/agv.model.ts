@@ -1,4 +1,4 @@
-import { WorkArea } from '../work-area/work-area';
+import { WorkArea } from './work-area.model';
 
 export class Agv {
     private progress = 0

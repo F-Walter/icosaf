@@ -2,11 +2,43 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
+import { Order } from 'src/app/model/order.model';
+import { Task } from 'src/app/model/task.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UCCService {
+
+
+  private _currentOrder: Order;
+
+  public get currentOrder(): Order {
+    return this._currentOrder;
+  }
+  public set currentOrder(value: Order) {
+    this._currentOrder = value;
+  }
+
+  constructor(private http: HttpClient) {
+  }
+
+
+  getTaskListAgv<Task>(order_id: Number, agv_id: Number):Observable<Task[]> {
+    let url = `http://icowms.cloud.reply.eu/Details/getTaskListAgv?order_id=${order_id}&agv_id=${agv_id}`
+    return this.http.get<Task[]>(url).pipe(retry(3))
+  }
+
+  getTaskListOrder<Task>(order_id: Number): Observable<Task[]> {
+    let url = `http://icowms.cloud.reply.eu/Details/getTaskListOrder?order_id=${order_id}`
+    return this.http.get<Task[]>(url).pipe(retry(3))
+
+  }
+  getOrdListByDateAndUC<Order>(uc: string, timestamp: string): Observable<Order[]> {
+    let url = `http://icowms.cloud.reply.eu/Details/getOrdListbyDate?ts=${timestamp}&uc=${uc}`
+    return this.http.get<Order[]>(url).pipe(retry(3))
+
+  }
   setTaskStatusOk(task_id: number) {
     let url = `http://icowms.cloud.reply.eu/Details/updateStatusOK?task_id=${task_id}`
     return this.http.get<any>(url).pipe(retry(3))
@@ -24,5 +56,4 @@ export class UCCService {
 
   }
 
-  constructor(private http: HttpClient) { }
 }
