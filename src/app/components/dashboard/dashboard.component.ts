@@ -67,12 +67,12 @@ export class DashboardComponent implements OnInit {
     this.progress = 75
     this.workAreas = []
 
-    let w1 = new WorkArea(0, [new Agv(0), new Agv(1)])
-    let w2 = new WorkArea(1, [new Agv(2), new Agv(3)])
-    let w3 = new WorkArea(2, [new Agv(4), new Agv(5)])
-    let w4 = new WorkArea(3, [new Agv(6), new Agv(7)])
-    let w5 = new WorkArea(4, [new Agv(8), new Agv(9)])
-    let w6 = new WorkArea(5, [new Agv(10), new Agv(11)])
+    let w1 = new WorkArea(0, "AMR", [new Agv(0), new Agv(1)])
+    let w2 = new WorkArea(1, "1", [new Agv(2), new Agv(3)])
+    let w3 = new WorkArea(2, "2", [new Agv(4), new Agv(5)])
+    let w4 = new WorkArea(3, "3", [new Agv(6), new Agv(7)])
+    let w5 = new WorkArea(4, "4", [new Agv(8), new Agv(9)])
+    let w6 = new WorkArea(5, "5", [new Agv(10), new Agv(11)])
 
     w1.agvList[0].setProgress(30)
     w1.agvList[1].setProgress(5)
@@ -127,11 +127,11 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(["Home"])
   }
 
-  openGraph(typeGraph:string) {
+  openGraph(typeGraph: string) {
     event.stopPropagation();
     this.router.navigate(["Home", { outlets: { dashboardContent: ["work-area", this.selectedWorkArea.id, "statistics", typeGraph] } }]);
   }
-  
+
 
 }
 

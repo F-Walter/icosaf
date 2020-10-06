@@ -1,6 +1,12 @@
 import { Agv } from '../agv/agv';
 
 export class WorkArea {
+    public get name(): string {
+        return this._name;
+    }
+    public set name(value: string) {
+        this._name = value;
+    }
     public get agvList(): Agv[] {
         return this._agvList;
     }
@@ -16,7 +22,7 @@ export class WorkArea {
 
 
 
-    constructor(private _id: number, private _agvList: Agv[]) {
+    constructor(private _id: number,private _name: string,private _agvList: Agv[]) {
     }
 
 
