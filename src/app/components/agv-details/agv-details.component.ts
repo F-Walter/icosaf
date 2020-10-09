@@ -173,7 +173,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (params['workAreaId'] && params['agvId']) {
 
-        this.UCCService.subjectSelectedWorkAreaAndAgv.next([params['workAreaId'], params['agvId']])
+        this.UCCService.subjectSelectedWorkAreaAndAgv.next([Number(params['workAreaId']), Number(params['agvId'])])
 
         this.UCCService.getTaskListAgv(this.UCCService.currentOrder.order_id, params['agvId']).subscribe(tasks => {
 

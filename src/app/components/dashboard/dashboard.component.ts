@@ -116,8 +116,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     //TODO remove timestamp hardcoded
     this.UCCService.getSubjectSelectedWorkAreaAndAgv().subscribe(workAreaAndAgvIds => {
-      this.selectedWorkArea = this.workAreas[workAreaAndAgvIds[0]]
-      this.selectedAgv = this.workAreas[workAreaAndAgvIds[0]].agvList[workAreaAndAgvIds[1]]
+
+      console.log("arrray",workAreaAndAgvIds);
+      
+      this.selectWorkArea(this.workAreas.find(workArea=>workArea.id === workAreaAndAgvIds[0]))
+      this.openAgvDetails(this.selectedWorkArea,this.selectedWorkArea.agvList.find(agv=> agv.id === workAreaAndAgvIds[1]))
     })
     //TODO calcolo percentuali di risoluzione task corrente
     this.UCCService.getOrdListByDateAndUC("UC-C", "2020-07-24").subscribe((orders: Order[]) => {
