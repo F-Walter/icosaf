@@ -38,7 +38,7 @@
             <ng-container matColumnDef="button">
                 <th mat-header-cell *matHeaderCellDef class="normalColumn"> </th>
                 <td mat-cell *matCellDef="let element" class="normalColumn">
-                    <button *ngIf="element.state==2" name="risolvi" mat-flat-button class="solveButton"
+                    <button *ngIf="element.state==3" name="risolvi" mat-flat-button class="solveButton"
                         (click)="solve(element)">
                         RISOLVI
                     </button>
@@ -144,18 +144,19 @@
                 <td mat-cell *matCellDef="let element">
                     <div [ngSwitch]="element.state">
                         <!-- 0: ok or problem solved, 1: warning , 2: not yet considered, 3: loading-->
-                        <mat-icon *ngSwitchCase="0" aria-hidden="false" aria-label="Example home icon" color="success">
+                        
+                        <mat-icon *ngSwitchCase="2" aria-hidden="false" aria-label="Example home icon" color="success">
                             check_circle
                         </mat-icon>
-                        <mat-icon *ngSwitchCase="1" aria-hidden="false" aria-label="Example home icon" color="error">
+                        <!-- <mat-icon *ngSwitchCase="1" aria-hidden="false" aria-label="Example home icon" color="error">
                             warning
-                        </mat-icon>
-                        <mat-icon *ngSwitchCase="2" aria-hidden="false" aria-label="Example home icon" color="inactive">
+                        </mat-icon> -->
+                        <!-- <mat-icon *ngSwitchCase="2" aria-hidden="false" aria-label="Example home icon" color="inactive">
                             cancel
-                        </mat-icon>
-                        <mat-icon *ngSwitchCase="3" aria-hidden="false" aria-label="Example home icon" color="looping">
+                        </mat-icon> -->
+                        <!-- <mat-icon *ngSwitchCase="5" aria-hidden="false" aria-label="Example home icon" color="looping">
                             loop
-                        </mat-icon>
+                        </mat-icon> -->
                         <mat-icon *ngSwitchCase="4" aria-hidden="false" aria-label="Example home icon" color="looping">
                             check_circle
                         </mat-icon>

@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit {
     this.progress = 75
     this.workAreas = []
 
-    let w1 = new WorkArea(0, "AMR", [new Agv(0)])
+    let w1 = new WorkArea(0, "AMR", [new Agv(1)])
     let w2 = new WorkArea(1, "1", [new Agv(2), new Agv(3)])
     let w3 = new WorkArea(2, "2", [new Agv(4), new Agv(5)])
     let w4 = new WorkArea(3, "3", [new Agv(6), new Agv(7)])
@@ -112,15 +112,13 @@ export class DashboardComponent implements OnInit {
     this.workAreas.push(w1, w2, w3, w4, w5, w6)
 
   }
-  
+
   ngOnInit(): void {
     //TODO remove timestamp hardcoded
     this.UCCService.getSubjectSelectedWorkAreaAndAgv().subscribe(workAreaAndAgvIds => {
 
-      console.log("arrray",workAreaAndAgvIds);
-      
-      this.selectWorkArea(this.workAreas.find(workArea=>workArea.id === workAreaAndAgvIds[0]))
-      this.openAgvDetails(this.selectedWorkArea,this.selectedWorkArea.agvList.find(agv=> agv.id === workAreaAndAgvIds[1]))
+      this.selectWorkArea(this.workAreas.find(workArea => workArea.id === workAreaAndAgvIds[0]))
+      this.openAgvDetails(this.selectedWorkArea, this.selectedWorkArea.agvList.find(agv => agv.id === workAreaAndAgvIds[1]))
     })
     //TODO calcolo percentuali di risoluzione task corrente
     this.UCCService.getOrdListByDateAndUC("UC-C", "2020-07-24").subscribe((orders: Order[]) => {
@@ -131,6 +129,8 @@ export class DashboardComponent implements OnInit {
 
       this.UCCService.getTaskListOrder(this.UCCService.currentOrder.order_id).subscribe(task => {
         //TODO QUI devo calcolare quella che poi sarà la percentuale da mostrare per l'ordine
+
+
       })
     })
 
@@ -154,7 +154,7 @@ export class DashboardComponent implements OnInit {
     this.selectedWorkArea = workArea
 
     console.log(this.selectedAgv);
-    
+
     event.stopPropagation();
   }
 

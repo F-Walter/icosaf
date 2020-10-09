@@ -13,6 +13,7 @@ import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { Order } from 'src/app/model/order.model';
 import { MatSort } from '@angular/material/sort';
 import { MatExpansionPanel } from '@angular/material/expansion';
+import { Task } from 'src/app/model/task.model';
 
 
 const options = { hour: "numeric", minute: "numeric", second: "numeric" }
@@ -27,7 +28,7 @@ export interface Problem {
 }
 
 
-interface PrelieviInterface {
+interface Prelievo {
   state: number;
   components: string
   kit: string;
@@ -51,7 +52,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('problemPanel', { static: false }) problemPanel: MatExpansionPanel
 
-  sseSubscription :Subscription
+  sseSubscription: Subscription
 
   @ViewChild('matSortProblems') matSortProblems: MatSort;
   @ViewChild('matSortPrelievi') matSortPrelievi: MatSort;
@@ -71,7 +72,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   opOptions = [{ text: 'Richiesta intervento', val: false, dis: false }, { text: 'Richiesta interveno urgente', val: false, dis: false }]
 
   displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'hour'];
-  dataSourcePrelievi: MatTableDataSource<PrelieviInterface>
+  dataSourcePrelievi: MatTableDataSource<Prelievo>
   problems: Slide[];
   taskErrorId: string;
 
@@ -177,7 +178,60 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.UCCService.getTaskListAgv(this.UCCService.currentOrder.order_id, params['agvId']).subscribe(tasks => {
 
+
+
+          let sourceProblems: Problem[] = []
+          let sourcePrelievi: Prelievo[] = []
           //TODO: definire come dare settare le due data source problemi e prelievi
+          tasks.forEach((task: Task) => {
+
+            switch (task.task_status_id) {
+              //created
+              case 1:
+                // sourcePrelievi.push({
+                //   state: 1,
+                //   components: `PN${task.task_id}`,
+                //   kit: "45",
+                //   hour: task.startTime.toLocaleTimeString('it', options)
+                // })
+                break;
+              //completed
+              case 2:
+                sourcePrelievi.push({
+                  state: 2,
+                  components: `PN${task.task_id}`,
+                  kit: "45",
+                  //   hour: task.stop_time.toLocaleTimeString('it', options)
+                  hour: new Date().toLocaleTimeString('it', options)
+                })
+
+                break;
+              //failed
+              case 3:
+              //pending
+              case 4:
+                sourceProblems.push({
+                  state: 3,
+                  id: `PN${task.task_id}`,
+                  kit: '45',
+                  //hour: task.error_time.toLocaleTimeString('it', options),
+                  hour: new Date().toLocaleTimeString('it', options),
+                  problemsFound: 'Tipologia Problema',
+                  button: '',
+                  description: `Problem description`,
+                })
+                break;
+            }
+
+            sourcePrelievi = sourcePrelievi.sort((a, b) => b.hour.localeCompare(a.hour))
+            this.dataSourcePrelievi.data = sourcePrelievi
+
+            this.dataSourceProblems.data = sourceProblems
+
+
+
+          })
+
 
         })
 
@@ -201,7 +255,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
               let sourcePrelievi = [...this.dataSourcePrelievi.data, {
-                state: problemFound ? 4 : 0,
+                state: problemFound ? 4 : 2,
                 components: `PN${taskId}`,
                 kit: "45",
                 hour: new Date().toLocaleTimeString('it', options)
@@ -219,7 +273,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
                 let taskId = response.task_id
                 this.dataSourceProblems.data = [
                   {
-                    state: 2,
+                    state: 3,
                     id: `PN${response.task_id}`,
                     kit: 'Nome kit',
                     hour: new Date().toLocaleTimeString('it', options),
