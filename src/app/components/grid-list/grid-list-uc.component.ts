@@ -31,10 +31,10 @@ export class GridListUCComponent {
   }
 
   buttons = [
-    { text: 'UC-A', value: "A", color: 'primary' },
-    { text: 'UC-B', value: "B", color: 'accent' },
-    { text: 'UC-C', value: "C", color: 'warn' },
-    { text: 'UC-D', value: "D", color: 'inactive' }
+    { text: 'UC-A', value: "A", color: 'primary', image:'../../../assets/img/UC-A.png' },
+    { text: 'UC-B', value: "B", color: 'accent', image:'../../../assets/img/UC-B.png' },
+    { text: 'UC-C', value: "C", color: 'warn', image:'../../../assets/img/UC-C.png' },
+    { text: 'UC-D', value: "D", color: 'inactive', image:'../../../assets/img/UC-D.png' }
   ]
 
 
