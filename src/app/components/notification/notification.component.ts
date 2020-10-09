@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { UCCService } from 'src/app/services/UC-C/uc-c-service.service';
 
 @Component({
@@ -14,7 +15,9 @@ export class NotificationComponent implements OnInit {
   taskId: string
   workAreaId: string
   agvId: string
-  constructor(@Inject(MAT_DIALOG_DATA) public data, private UCCService: UCCService) {
+  constructor(
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) public data, private UCCService: UCCService) {
     if (data.taskId) this.taskId = data.taskId
     if (data.workAreaId) this.workAreaId = data.workAreaId
     if (data.agvId) this.agvId = data.agvId
@@ -24,14 +27,7 @@ export class NotificationComponent implements OnInit {
   }
 
   risolviOra() {
-    // TODO vedere come estrarre i parametri da passare
-    this.UCCService.getLastActionError(15).subscribe(success => {
-      console.log(success[0].error_id);
-      
-      this.UCCService.setSolveAction("pippo", 1, 1, 1, success[0].error_id).subscribe(response => {
-        console.log("Risolvi ora", response)
-      })
-    })
+    this.router.navigate(["Home", { outlets: { dashboardContent: ["work-area", this.workAreaId, "agv-details", this.agvId] } }], { queryParams: { taskId: this.taskId } });
   }
 
 

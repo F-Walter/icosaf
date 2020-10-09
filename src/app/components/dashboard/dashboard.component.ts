@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { WorkArea } from 'src/app/model/work-area.model';
 import { Agv } from 'src/app/model/agv.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { EXPANSION_PANEL_ANIMATION_TIMING } from '@angular/material/expansion';
 import { UCCService } from 'src/app/services/UC-C/uc-c-service.service';
@@ -63,9 +63,13 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private sseService: SseService,
     private router: Router,
     private UCCService: UCCService) {
+
+
+
 
     this.stateJPH = 'collapsed';
     this.stateSat = 'collapsed'
@@ -108,39 +112,46 @@ export class DashboardComponent implements OnInit {
     this.workAreas.push(w1, w2, w3, w4, w5, w6)
 
   }
-
+  
   ngOnInit(): void {
     //TODO remove timestamp hardcoded
-
+    this.UCCService.getSubjectSelectedWorkAreaAndAgv().subscribe(workAreaAndAgvIds => {
+      this.selectedWorkArea = this.workAreas[workAreaAndAgvIds[0]]
+      this.selectedAgv = this.workAreas[workAreaAndAgvIds[0]].agvList[workAreaAndAgvIds[1]]
+    })
     //TODO calcolo percentuali di risoluzione task corrente
-    this.UCCService.getOrdListByDateAndUC("UC-C", "2020-07-24").subscribe((orders:Order[])=>{
+    this.UCCService.getOrdListByDateAndUC("UC-C", "2020-07-24").subscribe((orders: Order[]) => {
       //Ottengo il primo ordine non terminato e definisco questo come ordine corrente
-      this.UCCService.currentOrder = orders.find(order=>order.order_ts_end==null)
+      this.UCCService.currentOrder = orders.find(order => order.order_ts_end == null)
+      //salvo nella sessione currentOrder
+      localStorage.setItem('currentOrder', JSON.stringify(this.UCCService.currentOrder));
 
-        this.UCCService.getTaskListOrder(this.UCCService.currentOrder.order_id).subscribe(task=>{
-          //TODO QUI devo calcolare quella che poi sarà la percentuale da mostrare per l'ordine
-        })
+      this.UCCService.getTaskListOrder(this.UCCService.currentOrder.order_id).subscribe(task => {
+        //TODO QUI devo calcolare quella che poi sarà la percentuale da mostrare per l'ordine
       })
+    })
 
 
 
 
-      this.sseService
+    this.sseService
       .getServerSentEvent("http://localhost:4200/API/events")
       .subscribe(data => {
-        
+
         //TODO:recompute percentage tasks
-      
+
       })
 
 
   }
 
   openAgvDetails(workArea: WorkArea, agv: Agv) {
-    this.router.navigate(["Home", { outlets: { dashboardContent: ["work-area", workArea.id, "agv-details", agv.id]} }]);
-
+    this.router.navigate(["Home", { outlets: { dashboardContent: ["work-area", workArea.id, "agv-details", agv.id] } }]);
     this.selectedAgv = agv
     this.selectedWorkArea = workArea
+
+    console.log(this.selectedAgv);
+    
     event.stopPropagation();
   }
 

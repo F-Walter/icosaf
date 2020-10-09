@@ -29,6 +29,8 @@ import { LoginDialogComponent } from './components/login/login-dialog/login-dial
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
+import {MatSortModule} from '@angular/material/sort'; 
+
 import {MatInputModule} from '@angular/material/input'; 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AgvDetailsComponent } from './components/agv-details/agv-details.component';
@@ -79,6 +81,7 @@ import { UseCaseAComponent } from './components/UC-A/use-case-a.component';
     FormsModule,
     MatInputModule,
     MatPaginatorModule,
+    MatSortModule,
     MatCarouselModule.forRoot(),
 
   ],

@@ -87,9 +87,9 @@ export class AppComponent implements OnInit {
             width: 'auto',
             height: 'auto',
             data: {
-              workAreaId: 'data.workarea_id',
+              workAreaId: '0',
               taskId: data.task_id,
-              agvId: 'data.agv_id'
+              agvId: '0'
             },
             panelClass: "zeroPaddingModal"
           })

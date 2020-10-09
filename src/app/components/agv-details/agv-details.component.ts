@@ -11,10 +11,12 @@ import { Subscription } from 'rxjs';
 import { UCCService } from 'src/app/services/UC-C/uc-c-service.service';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { Order } from 'src/app/model/order.model';
+import { MatSort } from '@angular/material/sort';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 
-const options = { hour: "numeric", minute: "numeric" }
-export interface Item {
+const options = { hour: "numeric", minute: "numeric", second: "numeric" }
+export interface Problem {
   state: number; // 0 nessun problema or problema risolto // 1 problema // 2 componente non ancora considerato //3 loading
   id: string;
   kit: string;
@@ -47,50 +49,59 @@ interface PrelieviInterface {
 })
 export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  @ViewChild('problemPanel', { static: false }) problemPanel: MatExpansionPanel
+
+  sseSubscription :Subscription
+
+  @ViewChild('matSortProblems') matSortProblems: MatSort;
+  @ViewChild('matSortPrelievi') matSortPrelievi: MatSort;
+
+
   @ViewChild("OperatorSelection") opSelection: MatRadioGroup
   @ViewChild("AGVActionSelected") AGVsel: MatRadioGroup
-  dataSourceProblems: MatTableDataSource<Item>
+  dataSourceProblems: MatTableDataSource<Problem>
   columnsToDisplay = ['state', 'id', 'kit', 'problemsFound', 'button', 'hour'];
-  expandedElement: Item | null;
-  isTabClose: boolean
+  expandedElement: Problem | null;
+  isHidingProblemHandling: boolean
   AGVActionSelected: string
   OpActionSelected: string
   opChecked: boolean = false
 
   agvOptions = ['Ritentare', 'Rimanere fermo', 'Continuo attività']
-  opOptions = [{text:'Richiesta intervento', val:false, dis:false}, {text:'Richiesta interveno urgente', val:false, dis:false}]
+  opOptions = [{ text: 'Richiesta intervento', val: false, dis: false }, { text: 'Richiesta interveno urgente', val: false, dis: false }]
 
-  displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'hours'];
+  displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'hour'];
   dataSourcePrelievi: MatTableDataSource<PrelieviInterface>
   problems: Slide[];
+  taskErrorId: string;
 
 
   AGVActionSelection(actionSelected: string) {
     this.AGVActionSelected = actionSelected
 
-    if(actionSelected === this.agvOptions[1]){
+    if (actionSelected === this.agvOptions[1]) {
       console.log("selezionato rimanere fermo")
-      if(!this.opOptions.find(o => o.val==true))
-        this.opOptions[0].val=true
-      for(let op of this.opOptions){
+      if (!this.opOptions.find(o => o.val == true))
+        this.opOptions[0].val = true
+      for (let op of this.opOptions) {
         op.dis = false
       }
       console.log("Changed now")
     }
-    else{
+    else {
       console.log("selezionato altro")
-      for(let op of this.opOptions){
+      for (let op of this.opOptions) {
         op.val = false
         op.dis = true
       }
     }
   }
   OpActionSelection(opSel) {
-    if(!opSel.dis){
-      for(let op of this.opOptions)
-        if(opSel != op) op.val = false
+    if (!opSel.dis) {
+      for (let op of this.opOptions)
+        if (opSel != op) op.val = false
       //this.opOptions.find(o=>o!=opSel).val = false
-      this.opOptions.find(o=> o==opSel).val = true
+      this.opOptions.find(o => o == opSel).val = true
     }
   }
 
@@ -123,7 +134,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     private UCCService: UCCService,
     private activatedRoute: ActivatedRoute) {
 
-    this.isTabClose = true
+    this.isHidingProblemHandling = true
     this.problems = []
     this.problems.push({ image: "../../../assets/img/errorIcon.svg" },
       { image: "../../../assets/img/dangerIcon.svg" },
@@ -134,47 +145,82 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSourceProblems = new MatTableDataSource()
   }
   ngAfterViewInit(): void {
+
+    this.activatedRoute.queryParams.subscribe(queryParams => {
+      if (queryParams['taskId']) {
+
+        this.taskErrorId = queryParams['taskId']
+
+        this.problemPanel.open()
+        this.expandedElement = this.dataSourceProblems.data.find(problem => problem.id === `PN${queryParams['taskId']}`)
+        this.isHidingProblemHandling = false
+      }
+    })
     this.paginatorPrelievi = this.dataSourcePrelievi.paginator
     this.paginatorErrors = this.dataSourceProblems.paginator
+    this.matSortProblems = this.dataSourcePrelievi.sort
+    this.matSortPrelievi = this.dataSourcePrelievi.sort
   }
 
   ngOnInit(): void {
 
     //TODO chiamata per ottenere tutti i problemi e i task risolti fino a quel momento
 
+
+
+
     this.paramsSub = this.activatedRoute.params.subscribe(params => {
 
-      // UC-C
-      if (params['workAreaId'] === "0" && params['agvId'] === "0") {
+      if (params['workAreaId'] && params['agvId']) {
 
-     
-        this.UCCService.getTaskListAgv(this.UCCService.currentOrder.order_id,params['agvId']).subscribe(tasks=>{
+        this.UCCService.subjectSelectedWorkAreaAndAgv.next([params['workAreaId'], params['agvId']])
+
+        this.UCCService.getTaskListAgv(this.UCCService.currentOrder.order_id, params['agvId']).subscribe(tasks => {
 
           //TODO: definire come dare settare le due data source problemi e prelievi
 
         })
 
-        this.sseService
+        this.sseSubscription = this.sseService
           .getServerSentEvent("http://localhost:4200/API/events")
           .subscribe(data => {
 
             let response = JSON.parse(data.data)
 
+            //console.log(response);
+
             if (response.status === "OK") {
-              this.dataSourcePrelievi.data = [...this.dataSourcePrelievi.data, {
-                state: 0,
-                components: `PN${response.task_id}`,
+
+              let taskId = response.task_id
+
+              let problemFound = false
+
+              let sourceProblem = this.dataSourceProblems.data.filter(problem => { problemFound = true; return problem.id !== `PN${taskId}` })
+
+              this.dataSourceProblems.data = sourceProblem
+
+
+              let sourcePrelievi = [...this.dataSourcePrelievi.data, {
+                state: problemFound ? 4 : 0,
+                components: `PN${taskId}`,
                 kit: "45",
                 hour: new Date().toLocaleTimeString('it', options)
               }]
+              sourcePrelievi = sourcePrelievi.sort((a, b) => b.hour.localeCompare(a.hour))
+
+              this.dataSourcePrelievi.data = sourcePrelievi
 
               this.dataSourcePrelievi.paginator = this.paginatorPrelievi
+              this.dataSourcePrelievi.sort = this.matSortPrelievi
+
             } else {
               if (response.status === "NOK") {
+
+                let taskId = response.task_id
                 this.dataSourceProblems.data = [
                   {
                     state: 2,
-                    id: 'PN 45335478',
+                    id: `PN${response.task_id}`,
                     kit: 'Nome kit',
                     hour: new Date().toLocaleTimeString('it', options),
                     problemsFound: 'Tipologia Problema',
@@ -184,27 +230,18 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
                 ]
 
                 this.dataSourceProblems.paginator = this.paginatorErrors
+                this.dataSourceProblems.sort = this.matSortProblems
               }
             }
           })
-
-        // this.dataSourceProblems.data = [{
-        //   state: 2,
-        //   id: 'PN 45335478',
-        //   kit: 'Nome kit',
-        //   hour: new Date().toLocaleTimeString('it', options),
-        //   problemsFound: 'Tipologia Problema',
-        //   button: '',
-        //   description: `Problem description`,
-        // }]
       }
     })
   }
 
   ngOnDestroy(): void {
     this.paramsSub.unsubscribe()
+    this.sseSubscription.unsubscribe()
   }
-
 
 
   headerOfColumn(column: string) {
@@ -223,23 +260,25 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   proceed() {
-    console.log(this.AGVActionSelected);
+    // console.log(this.AGVActionSelected);
+    // console.log(this.OpActionSelected);
+
 
     this.UCCService.getLastActionError(15).subscribe(success => {
       console.log(success[0].error_id);
 
-      this.UCCService.setSolveAction("pippo", 1, 1, 1, success[0].error_id).subscribe(response => {
-        this.UCCService.setTaskStatusOk(15).subscribe(_ => {
+      this.UCCService.setSolveAction(this.AGVActionSelected, 1, 1, 1, success[0].error_id).subscribe(response => {
+        this.UCCService.setTaskStatusOk(Number(this.taskErrorId)).subscribe(_ => {
           console.log("Risolvi ora", response)
         })
       })
     })
   }
 
-  solve(element: Item) {
+  solve(element: Problem) {
     event.stopPropagation();
     //this.dialog.open(ProblemModalComponent);
-    this.isTabClose = false
+    this.isHidingProblemHandling = false
     this.expandedElement = element
   }
 
@@ -270,16 +309,16 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 }
 
-const PROBLEMS: Item[] = [
-  {
-    state: 2,
-    id: 'PN 45335478',
-    kit: 'Nome kit',
-    hour: '10:59',
-    problemsFound: 'Tipologia Problema',
-    button: '',
-    description: `Problem description`
-  },
-]
+// const PROBLEMS: Item[] = [
+//   {
+//     state: 2,
+//     id: 'PN 45335478',
+//     kit: 'Nome kit',
+//     hour: '10:59',
+//     problemsFound: 'Tipologia Problema',
+//     button: '',
+//     description: `Problem description`
+//   },
+// ]
 
 

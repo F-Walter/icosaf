@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { retry } from 'rxjs/operators';
 import { Order } from 'src/app/model/order.model';
 import { Task } from 'src/app/model/task.model';
@@ -11,20 +11,41 @@ import { Task } from 'src/app/model/task.model';
 export class UCCService {
 
 
+  private _subjectSelectedWorkAreaAndAgv: Subject<number[]>;
+  public get subjectSelectedWorkAreaAndAgv(): Subject<number[]> {
+    return this._subjectSelectedWorkAreaAndAgv;
+  }
+  public set subjectSelectedWorkAreaAndAgv(value: Subject<number[]>) {
+    this._subjectSelectedWorkAreaAndAgv = value;
+  }
+ 
+  public getSubjectSelectedWorkAreaAndAgv(): Observable<number[]> {
+    return this._subjectSelectedWorkAreaAndAgv.asObservable();
+  }
+
   private _currentOrder: Order;
 
   public get currentOrder(): Order {
-    return this._currentOrder;
+
+    if (this._currentOrder)
+      return this._currentOrder;
+    else {
+      let currentOrder = JSON.parse(localStorage.getItem('currentOrder'))
+      if (currentOrder)
+        return currentOrder as Order
+      else return null
+    }
   }
   public set currentOrder(value: Order) {
     this._currentOrder = value;
   }
 
   constructor(private http: HttpClient) {
+    this.subjectSelectedWorkAreaAndAgv = new Subject();
   }
 
 
-  getTaskListAgv<Task>(order_id: Number, agv_id: Number):Observable<Task[]> {
+  getTaskListAgv<Task>(order_id: Number, agv_id: Number): Observable<Task[]> {
     let url = `http://icowms.cloud.reply.eu/Details/getTaskListAgv?order_id=${order_id}&agv_id=${agv_id}`
     return this.http.get<Task[]>(url).pipe(retry(3))
   }

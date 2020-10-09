@@ -20,11 +20,11 @@ export class SseService {
   }
 
   getServerSentEvent(url: string) {
-    console.log("before")
+  //  console.log("before")
     return Observable.create(observer => {
-      console.log("middle")
+    //  console.log("middle")
       const eventSource = this.getEventSource(url);
-      console.log("after")
+      //console.log("after")
 
       eventSource.onmessage = event => {
         //success
