@@ -188,11 +188,12 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
             switch (task.task_status_id) {
               //created
               case 1:
-                // sourcePrelievi.push({
+                //  sourcePrelievi.push({
                 //   state: 1,
                 //   components: `PN${task.task_id}`,
                 //   kit: "45",
-                //   hour: task.startTime.toLocaleTimeString('it', options)
+                // //  hour: task.startTime.toLocaleTimeString('it', options)
+                // hour: new Date().toLocaleTimeString('it', options)
                 // })
                 break;
               //completed
@@ -228,6 +229,11 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
             this.dataSourceProblems.data = sourceProblems
 
+            this.dataSourcePrelievi.paginator = this.paginatorPrelievi
+            this.dataSourcePrelievi.sort = this.matSortPrelievi
+            this.dataSourceProblems.paginator = this.paginatorErrors
+            this.dataSourceProblems.sort = this.matSortProblems
+
 
 
           })
@@ -235,29 +241,29 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
         })
 
-        if(!this.sseSubscription){
-          
+        if (!this.sseSubscription) {
+
           this.sseSubscription = this.sseService
             .getServerSentEvent("http://localhost:4200/API/events")
             .subscribe(data => {
-  
+
               let response = JSON.parse(data.data)
-  
-  
+
+
               if (response.status === "OK") {
-  
-  
-                console.log("CIao",response);
-  
+
+
+                console.log("CIao", response);
+
                 let taskId = response.task_id
-  
+
                 let problemFound = false
-  
+
                 let sourceProblem = this.dataSourceProblems.data.filter(problem => { problemFound = true; return problem.id !== `PN${taskId}` })
-  
+
                 this.dataSourceProblems.data = sourceProblem
-  
-  
+
+
                 let sourcePrelievi = [...this.dataSourcePrelievi.data, {
                   state: problemFound ? 4 : 2,
                   components: `PN${taskId}`,
@@ -265,15 +271,15 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
                   hour: new Date().toLocaleTimeString('it', options)
                 }]
                 sourcePrelievi = sourcePrelievi.sort((a, b) => b.hour.localeCompare(a.hour))
-  
+
                 this.dataSourcePrelievi.data = sourcePrelievi
-  
+
                 this.dataSourcePrelievi.paginator = this.paginatorPrelievi
                 this.dataSourcePrelievi.sort = this.matSortPrelievi
-  
+
               } else {
                 if (response.status === "NOK") {
-  
+
                   let taskId = response.task_id
                   this.dataSourceProblems.data = [
                     {
@@ -286,7 +292,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
                       description: `Problem description`,
                     }
                   ]
-  
+
                   this.dataSourceProblems.paginator = this.paginatorErrors
                   this.dataSourceProblems.sort = this.matSortProblems
                 }
