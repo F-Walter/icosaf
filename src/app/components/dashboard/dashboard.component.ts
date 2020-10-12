@@ -114,6 +114,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.selectWorkArea(this.workAreas[0])
+    this.openAgvDetails(this.selectedWorkArea, this.selectedWorkArea.agvList[0]);
+
     //TODO remove timestamp hardcoded
     this.UCCService.getSubjectSelectedWorkAreaAndAgv().subscribe(workAreaAndAgvIds => {
 
