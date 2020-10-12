@@ -2,13 +2,33 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { retry } from 'rxjs/operators';
+import { Agv } from 'src/app/model/agv.model';
 import { Order } from 'src/app/model/order.model';
 import { Task } from 'src/app/model/task.model';
+import { WorkArea } from 'src/app/model/work-area.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UCCService {
+
+
+  private _selectedAgv: Agv;
+  public get selectedAgv(): Agv {
+    return this._selectedAgv;
+  }
+  public set selectedAgv(value: Agv) {
+    this._selectedAgv = value;
+  }
+  private _selectedWorkArea: WorkArea;
+
+  public get selectedWorkArea(): WorkArea {
+    return this._selectedWorkArea;
+  }
+  public set selectedWorkArea(value: WorkArea) {
+    this._selectedWorkArea = value;
+  }
+
 
 
   private _subjectSelectedWorkAreaAndAgv: Subject<number[]>;
@@ -18,7 +38,7 @@ export class UCCService {
   public set subjectSelectedWorkAreaAndAgv(value: Subject<number[]>) {
     this._subjectSelectedWorkAreaAndAgv = value;
   }
- 
+
   public getSubjectSelectedWorkAreaAndAgv(): Observable<number[]> {
     return this._subjectSelectedWorkAreaAndAgv.asObservable();
   }
@@ -42,6 +62,9 @@ export class UCCService {
 
   constructor(private http: HttpClient) {
     this.subjectSelectedWorkAreaAndAgv = new Subject();
+
+    this.selectedWorkArea = null
+    this.selectedAgv = null
   }
 
 

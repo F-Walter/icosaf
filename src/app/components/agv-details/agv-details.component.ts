@@ -30,9 +30,10 @@ export interface Problem {
 
 interface Prelievo {
   state: number;
-  components: string
+  components: string;
   kit: string;
-  hour: string;
+  startHour: string;
+  stopHour: string;
 }
 
 
@@ -61,7 +62,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("OperatorSelection") opSelection: MatRadioGroup
   @ViewChild("AGVActionSelected") AGVsel: MatRadioGroup
   dataSourceProblems: MatTableDataSource<Problem>
-  columnsToDisplay = ['state', 'id', 'kit', 'problemsFound', 'button', 'hour'];
+  dispayedColumnsProblems = ['state', 'id', 'kit', 'problemsFound', 'button', 'hour'];
   expandedElement: Problem | null;
   isHidingProblemHandling: boolean
   AGVActionSelected: string
@@ -71,7 +72,7 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   agvOptions = ['Ritentare', 'Rimanere fermo', 'Continuo attività']
   opOptions = [{ text: 'Richiesta intervento', val: false, dis: false }, { text: 'Richiesta interveno urgente', val: false, dis: false }]
 
-  displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'hour'];
+  displayedColumnsPrelievi: string[] = ['state', 'components', 'kit', 'startHour', 'stopHour'];
   dataSourcePrelievi: MatTableDataSource<Prelievo>
   problems: Slide[];
   taskErrorId: string;
@@ -185,6 +186,19 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
           //TODO: definire come dare settare le due data source problemi e prelievi
           tasks.forEach((task: Task) => {
 
+            if (task.create_time)
+              task.create_time_date = new Date(task.create_time.replace("T", " ").replace("Z", ""))
+            if (task.start_time)
+              task.start_time_date = new Date(task.start_time.replace("T", " ").replace("Z", ""))
+            if (task.stop_time)
+              task.stop_time_date = new Date(task.stop_time.replace("T", " ").replace("Z", ""))
+            if (task.error_time)
+              task.error_time_date = new Date(task.error_time.replace("T", " ").replace("Z", ""))
+
+
+            //  console.log("task----", task);
+
+
             switch (task.task_status_id) {
               //created
               case 1:
@@ -198,12 +212,15 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
               //completed
               case 2:
+
                 sourcePrelievi.push({
-                  state: 2,
+                  // se questi sono stati settati vuol dire che c'è stato un errore ma è stato risolto ==> icona gialla === stato 4
+                  state: (task.error_time && task.stop_time) ? 4 : 2,
                   components: `PN${task.task_id}`,
                   kit: "45",
                   //   hour: task.stop_time.toLocaleTimeString('it', options)
-                  hour: new Date().toLocaleTimeString('it', options)
+                  startHour: task.start_time_date.toLocaleTimeString('it', options),
+                  stopHour: task.stop_time_date.toLocaleTimeString('it', options)
                 })
 
                 break;
@@ -215,8 +232,8 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
                   state: 3,
                   id: `PN${task.task_id}`,
                   kit: '45',
-                  //hour: task.error_time.toLocaleTimeString('it', options),
-                  hour: new Date().toLocaleTimeString('it', options),
+                  hour: task.error_time ? task.error_time_date.toLocaleTimeString('it', options) : new Date().toLocaleTimeString('it', options),
+                  // hour: new Date().toLocaleTimeString('it', options),
                   problemsFound: 'Tipologia Problema',
                   button: '',
                   description: `Problem description`,
@@ -224,16 +241,15 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             }
 
-            sourcePrelievi = sourcePrelievi.sort((a, b) => b.hour.localeCompare(a.hour))
+            sourcePrelievi = sourcePrelievi.sort((a, b) => b.components.localeCompare(a.components))
             this.dataSourcePrelievi.data = sourcePrelievi
 
             this.dataSourceProblems.data = sourceProblems
 
-            this.dataSourcePrelievi.paginator = this.paginatorPrelievi
-            this.dataSourcePrelievi.sort = this.matSortPrelievi
-            this.dataSourceProblems.paginator = this.paginatorErrors
-            this.dataSourceProblems.sort = this.matSortProblems
-
+            this.paginatorPrelievi = this.dataSourcePrelievi.paginator
+            this.paginatorErrors = this.dataSourceProblems.paginator
+            this.matSortProblems = this.dataSourcePrelievi.sort
+            this.matSortPrelievi = this.dataSourcePrelievi.sort
 
 
           })
@@ -247,15 +263,15 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
             .getServerSentEvent("http://localhost:4200/API/events")
             .subscribe(data => {
 
-              let response = JSON.parse(data.data)
+              let successfulTask = JSON.parse(data.data)
 
 
-              if (response.status === "OK") {
+              if (successfulTask.status === "OK") {
 
 
-                console.log("CIao", response);
+                console.log("CIao", successfulTask);
 
-                let taskId = response.task_id
+                let taskId = successfulTask.task_id
 
                 let problemFound = false
 
@@ -268,23 +284,20 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
                   state: problemFound ? 4 : 2,
                   components: `PN${taskId}`,
                   kit: "45",
-                  hour: new Date().toLocaleTimeString('it', options)
+                  startHour: successfulTask.start_time ? successfulTask.start_time.toLocaleTimeString('it', options) : new Date().toLocaleTimeString('it', options),
+                  stopHour: successfulTask.stop_time ? successfulTask.stop_time.toLocaleTimeString('it', options) : new Date().toLocaleTimeString('it', options)
                 }]
-                sourcePrelievi = sourcePrelievi.sort((a, b) => b.hour.localeCompare(a.hour))
+                sourcePrelievi = sourcePrelievi.sort((a, b) => b.components.localeCompare(a.components))
 
                 this.dataSourcePrelievi.data = sourcePrelievi
-
-                this.dataSourcePrelievi.paginator = this.paginatorPrelievi
-                this.dataSourcePrelievi.sort = this.matSortPrelievi
-
               } else {
-                if (response.status === "NOK") {
+                if (successfulTask.status === "NOK") {
 
-                  let taskId = response.task_id
+                  let taskId = successfulTask.task_id
                   this.dataSourceProblems.data = [
                     {
                       state: 3,
-                      id: `PN${response.task_id}`,
+                      id: `PN${successfulTask.task_id}`,
                       kit: 'Nome kit',
                       hour: new Date().toLocaleTimeString('it', options),
                       problemsFound: 'Tipologia Problema',
@@ -292,11 +305,14 @@ export class AgvDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
                       description: `Problem description`,
                     }
                   ]
-
-                  this.dataSourceProblems.paginator = this.paginatorErrors
-                  this.dataSourceProblems.sort = this.matSortProblems
                 }
               }
+
+
+              this.paginatorPrelievi = this.dataSourcePrelievi.paginator
+              this.paginatorErrors = this.dataSourceProblems.paginator
+              this.matSortProblems = this.dataSourcePrelievi.sort
+              this.matSortPrelievi = this.dataSourcePrelievi.sort
             })
         }
       }
