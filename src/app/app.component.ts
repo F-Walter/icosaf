@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from './components/login/login-dialog/login-dialog.component';
 import { MatSelectionList } from '@angular/material/list';
 import { NotificationComponent } from './components/notification/notification.component';
+import { UCCService } from './services/UC-C/uc-c-service.service';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
 
 
   constructor(
+    private uccService: UCCService,
     private sseService: SseService,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
@@ -72,30 +74,34 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
 
-    
     console.log("Contacting events...")
     this.sseService
       .getServerSentEvent("http://localhost:4200/API/events")
       .subscribe(response => {
 
-        console.log(response)
+        console.log();
+
         let data = JSON.parse(response.data)
-        console.log(data)
         if (data.status === "NOK") {
           const dialogRef = this.dialog.open(NotificationComponent, {
-            disableClose:true,
+            disableClose: true,
             width: 'auto',
             height: 'auto',
             data: {
-              workAreaId: '0',
+              workAreaId:
+                this.uccService.selectedWorkArea.id,
+              workAreaName:
+                this.uccService.selectedWorkArea.name,
               taskId: data.task_id,
-              agvId: '0'
+              agvId:
+                this.uccService.selectedAgv.id
             },
             panelClass: "zeroPaddingModal"
           })
         }
       });
     console.log(this.activatedRoute.url)
+
   }
 
   openDialog(): void {

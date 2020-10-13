@@ -12,6 +12,7 @@ export class NotificationComponent implements OnInit {
 
   public dialogRef: MatDialogRef<NotificationComponent>
 
+  workAreaName: string
   taskId: string
   workAreaId: string
   agvId: string
@@ -20,6 +21,7 @@ export class NotificationComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data, private UCCService: UCCService) {
     if (data.taskId) this.taskId = data.taskId
     if (data.workAreaId) this.workAreaId = data.workAreaId
+    if (data.workAreaName) this.workAreaName = data.workAreaName
     if (data.agvId) this.agvId = data.agvId
   }
 

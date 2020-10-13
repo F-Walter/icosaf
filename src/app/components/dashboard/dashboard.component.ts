@@ -6,8 +6,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { EXPANSION_PANEL_ANIMATION_TIMING } from '@angular/material/expansion';
 import { UCCService } from 'src/app/services/UC-C/uc-c-service.service';
 import { Order } from 'src/app/model/order.model';
-import { Task } from 'src/app/model/task.model';
 import { SseService } from 'src/app/services/SseService/sse-service.service';
+import { MatDialog } from '@angular/material/dialog';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,7 @@ import { SseService } from 'src/app/services/SseService/sse-service.service';
     ]),
   ]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
 
 
   stateJPH: string
@@ -66,10 +67,8 @@ export class DashboardComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private sseService: SseService,
     private router: Router,
-    private UCCService: UCCService) {
-
-
-
+    private UCCService: UCCService,
+    public dialog: MatDialog) {
 
     this.stateJPH = 'collapsed';
     this.stateSat = 'collapsed'
@@ -111,9 +110,19 @@ export class DashboardComponent implements OnInit {
 
     this.workAreas.push(w1, w2, w3, w4, w5, w6)
 
+    this.selectedWorkArea = this.workAreas[0]
+    this.selectedAgv = this.workAreas[0].agvList[0]
+
+  }
+  ngAfterViewInit(): void {
+ 
   }
 
   ngOnInit(): void {
+
+    this.selectWorkArea(this.workAreas[0])
+    this.openAgvDetails(this.selectedWorkArea, this.selectedWorkArea.agvList[0]);
+
     //TODO remove timestamp hardcoded
     this.UCCService.getSubjectSelectedWorkAreaAndAgv().subscribe(workAreaAndAgvIds => {
 
@@ -134,17 +143,14 @@ export class DashboardComponent implements OnInit {
       })
     })
 
-
-
-
+    console.log("Contacting events...")
     this.sseService
       .getServerSentEvent("http://localhost:4200/API/events")
-      .subscribe(data => {
 
-        //TODO:recompute percentage tasks
+      .subscribe(response => {
 
-      })
-
+        //CALCOLA PERCENTUALI TODO
+      });
 
   }
 
@@ -152,8 +158,12 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(["Home", { outlets: { dashboardContent: ["work-area", workArea.id, "agv-details", agv.id] } }]);
     this.selectedAgv = agv
     this.selectedWorkArea = workArea
+    this.UCCService.selectedAgv = this.selectedAgv
+    this.UCCService.selectedWorkArea = this.selectedWorkArea
+
 
     console.log(this.selectedAgv);
+
 
     event.stopPropagation();
   }
@@ -163,12 +173,15 @@ export class DashboardComponent implements OnInit {
     if (this.selectedWorkArea == workArea) {
       //unselect the card
       this.selectedWorkArea = null
+
+      // remove details about card
+      this.router.navigate(["Home"])
     }
     else
       this.selectedWorkArea = workArea
 
-    // remove details about card
-    this.router.navigate(["Home"])
+    this.UCCService.selectedWorkArea = this.selectedWorkArea
+
   }
 
   openGraph(typeGraph: string) {

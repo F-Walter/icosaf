@@ -27,3 +27,9 @@ se l'ordine è finito)??
 - l'ordine corrente lo definiamo in base a order_ts_end se settato o meno, è corretto?
 
 - come definiamo il kit e il problema nell'interfaccia di Elisa??
+
+
+-----------------------------------------------------------------------------------------
+
+-auto selezione della area di lavoro e agv
+
